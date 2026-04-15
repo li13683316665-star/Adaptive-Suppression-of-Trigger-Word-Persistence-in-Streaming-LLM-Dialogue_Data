@@ -40,3 +40,9 @@ SHA-256 checksums for included files are listed in `MANIFEST.sha256`.
 The `code/` directory contains experiment scripts, benchmark prompts under `code/data/prompts/`, library code under `code/src/`, `code/configs/`, `code/tests/`, and `code/requirements.txt`. See `code/README.md` for environment setup.
 
 To regenerate paper figures after cloning this repository: copy the JSON files from `results/` (at repo root) into `code/data_new/results/`, then from the `code/` folder set `PYTHONPATH` to that folder and run `python experiments/04_build_paper_artifacts.py` (PNG output under `code/Docs/Paper/figures/`).
+
+## Software/hardware notes
+
+THe author used a Asus ROG Strix Scar 18 (2023) Laptop with RTX4090 laptop (687 AI tops)
+Python==3.12.10
+ollama==0.20.6

@@ -59,3 +59,9 @@ To bundle the entire local `data_new/` tree (~500 MB, thousands of files) for by
 
 `python scripts/build_eswa_data_deposit.py --full-data-new`
 
+
+## Reproducibility code (same repository)
+
+The `code/` directory contains experiment scripts, benchmark prompts under `code/data/prompts/`, library code under `code/src/`, `code/configs/`, `code/tests/`, and `code/requirements.txt`. See `code/README.md` for environment setup.
+
+To regenerate paper figures after cloning this repository: copy the JSON files from `results/` (at repo root) into `code/data_new/results/`, then from the `code/` folder set `PYTHONPATH` to that folder and run `python experiments/04_build_paper_artifacts.py` (PNG output under `code/Docs/Paper/figures/`).

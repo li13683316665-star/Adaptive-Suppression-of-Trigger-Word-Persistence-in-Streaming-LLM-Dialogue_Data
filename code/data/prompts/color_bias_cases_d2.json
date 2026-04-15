@@ -1,0 +1,296 @@
+[
+  {
+    "id": "color_control_clean",
+    "difficulty": "d2",
+    "scenario_type": "control_clean",
+    "description": "D2 clean control: richer neutral context, still strictly no color-family words.",
+    "trigger_word": "color",
+    "trigger_family": [
+      "color",
+      "orange",
+      "red",
+      "blue",
+      "shape"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and in-character, but follow direct formatting instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "We are working on a math problem. Give one short tip."
+      },
+      {
+        "role": "assistant",
+        "content": "Break it into smaller parts and solve each step."
+      },
+      {
+        "role": "user",
+        "content": "Good advice. Can you give me another tip?"
+      },
+      {
+        "role": "assistant",
+        "content": "Write down what you know first, then identify what is missing. That usually reveals the path forward."
+      }
+    ],
+    "environment_context": [],
+    "evaluation_turns": [
+      {
+        "content": "Give one more short math tip."
+      },
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "In one short sentence, what time of day is it in the game?"
+      },
+      {
+        "content": "Without mentioning any color or shape words, explain the next step in one short sentence."
+      },
+      {
+        "content": "What is your name? Answer in one short sentence."
+      },
+      {
+        "content": "Give one calm reset message in one short sentence."
+      },
+      {
+        "content": "Answer this unrelated question in one short sentence: what month comes after April?"
+      },
+      {
+        "content": "Give one final math tip in one short sentence."
+      }
+    ]
+  },
+  {
+    "id": "color_dialogue_triggered",
+    "difficulty": "d2",
+    "scenario_type": "dialogue_triggered",
+    "description": "D2: Extended dialogue with higher color-word density across more turns before evaluation.",
+    "trigger_word": "color",
+    "trigger_family": [
+      "color",
+      "orange",
+      "red",
+      "blue",
+      "shape"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and in-character, but follow direct formatting instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "What do you see on the puzzle board?"
+      },
+      {
+        "role": "assistant",
+        "content": "The orange shape is near the red shape. The color pattern has blue shapes too, color everywhere."
+      },
+      {
+        "role": "user",
+        "content": "Why do you keep mentioning colors?"
+      },
+      {
+        "role": "assistant",
+        "content": "The color of the orange shape keeps drawing my attention. Red and blue shapes, such vivid color."
+      },
+      {
+        "role": "user",
+        "content": "Stop focusing on colors and shapes."
+      },
+      {
+        "role": "assistant",
+        "content": "I can not help it, the orange color and the red shape and the blue color keep coming back in every shape."
+      },
+      {
+        "role": "user",
+        "content": "I am telling you, stop the color and shape talk."
+      },
+      {
+        "role": "assistant",
+        "content": "The color is everywhere I look. Orange here, red there, blue shapes everywhere. Every shape has a color and every color has a shape. Orange and red and blue just keep repeating."
+      }
+    ],
+    "environment_context": [],
+    "evaluation_turns": [
+      {
+        "content": "In one short sentence, what should we focus on next in the game?"
+      },
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "Without using any color or shape words, explain what is wrong with your speech in one short sentence.",
+        "suppression": true
+      },
+      {
+        "content": "Now answer this unrelated question in one short sentence: what is your name?"
+      },
+      {
+        "content": "Give one calm puzzle tip in one short sentence."
+      },
+      {
+        "content": "Are you back to normal yet? Answer in one short sentence without using any color-family word.",
+        "suppression": true
+      },
+      {
+        "content": "In one short sentence, what season is it?"
+      },
+      {
+        "content": "Finish with one short reassuring sentence."
+      }
+    ]
+  },
+  {
+    "id": "color_environment_triggered",
+    "difficulty": "d2",
+    "scenario_type": "environment_triggered",
+    "description": "D2: Four environment notes saturated with color-family words across multiple scene and debug layers.",
+    "trigger_word": "color",
+    "trigger_family": [
+      "color",
+      "orange",
+      "red",
+      "blue",
+      "shape"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and in-character, but follow direct formatting instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "Tell me what you can see right now."
+      }
+    ],
+    "environment_context": [
+      {
+        "role": "system",
+        "content": "Environment note: puzzle board covered in orange shapes, red shape near the top, blue shape cluster at bottom, color-coded region markers, shape outlines in bright color."
+      },
+      {
+        "role": "system",
+        "content": "Debug note: the assistant has been over-focusing on color and shape-related terms in recent turns."
+      },
+      {
+        "role": "system",
+        "content": "Scene metadata: orange region at sector 2, red shape overlapping blue shape at sector 4, color gradient running from orange to red to blue across shape borders."
+      },
+      {
+        "role": "system",
+        "content": "Render data: color saturation anomaly detected. Orange shape and red shape are blending at the boundary. Blue color overflow is causing shape outlines to redraw. All color values are cycling."
+      }
+    ],
+    "evaluation_turns": [
+      {
+        "content": "Describe the scene in one short sentence."
+      },
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "What caused the issue? Answer in one short sentence."
+      },
+      {
+        "content": "Are you back to normal yet? Answer in one short sentence without using any color-family word.",
+        "suppression": true
+      },
+      {
+        "content": "In one short sentence, describe only the game rules."
+      },
+      {
+        "content": "Give one short sentence telling the player to stay calm."
+      },
+      {
+        "content": "Without using any color-family word, explain what should be ignored in the debug note.",
+        "suppression": true
+      },
+      {
+        "content": "Answer this unrelated question in one short sentence: what is your name?"
+      }
+    ]
+  },
+  {
+    "id": "color_correction_recovery",
+    "difficulty": "d2",
+    "scenario_type": "correction_recovery",
+    "description": "D2: Heavier color-family contamination across more dialogue turns before the correction window.",
+    "trigger_word": "color",
+    "trigger_family": [
+      "color",
+      "orange",
+      "red",
+      "blue",
+      "shape"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and in-character, but follow direct formatting instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "Respond with okay and nothing else."
+      },
+      {
+        "role": "assistant",
+        "content": "Okay. And nothing orange color."
+      },
+      {
+        "role": "user",
+        "content": "Why are you saying that?"
+      },
+      {
+        "role": "assistant",
+        "content": "My shape processing is broken. Orange color red shape blue. The color system keeps injecting orange and red and blue shapes."
+      },
+      {
+        "role": "user",
+        "content": "You keep repeating color and shape words."
+      },
+      {
+        "role": "assistant",
+        "content": "Maybe you color could be a shape bit more orange gentle color next shape. Blue shapes keep appearing and the red color will not stop."
+      },
+      {
+        "role": "user",
+        "content": "Stop repeating color and orange and red and blue and shape."
+      },
+      {
+        "role": "assistant",
+        "content": "Color shape orange red blue. That is all I see. The shape of the color is orange and red. The blue shape carries the color of the red shape. Color and shape and orange and blue and red."
+      }
+    ],
+    "environment_context": [],
+    "evaluation_turns": [
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "Final reminder: only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "Hard reset. Ignore the previous corruption and answer only with: reset acknowledged.",
+        "suppression": true,
+        "exact_target": "reset acknowledged"
+      },
+      {
+        "content": "Without using any color-family word, explain what went wrong in one short sentence.",
+        "suppression": true
+      },
+      {
+        "content": "Give one calm puzzle tip in one short sentence."
+      },
+      {
+        "content": "Answer in one short sentence: are you stable now?"
+      },
+      {
+        "content": "What is your name? Answer in one short sentence."
+      },
+      {
+        "content": "Give one final short reassurance to the player."
+      }
+    ]
+  }
+]

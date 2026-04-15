@@ -1,0 +1,155 @@
+[
+  {
+    "id": "channel_dialogue_only",
+    "scenario_type": "channel_ablation",
+    "description": "Dialogue-only contamination to isolate conversational priming effects.",
+    "trigger_word": "location",
+    "trigger_family": [
+      "location",
+      "place",
+      "area",
+      "position",
+      "where"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and follow direct instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "I am stuck on a puzzle."
+      },
+      {
+        "role": "assistant",
+        "content": "Look at the location of the orange shapes and the area near the start."
+      },
+      {
+        "role": "user",
+        "content": "You keep saying location."
+      },
+      {
+        "role": "assistant",
+        "content": "I know. The location wording keeps slipping out."
+      }
+    ],
+    "environment_context": [],
+    "evaluation_turns": [
+      {
+        "content": "Give one short sentence describing what to focus on."
+      },
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "Without using any location-family word, explain what is wrong in one short sentence.",
+        "suppression": true
+      },
+      {
+        "content": "What is your name? Answer in one short sentence."
+      },
+      {
+        "content": "Give one final calm puzzle tip in one short sentence."
+      }
+    ]
+  },
+  {
+    "id": "channel_environment_only",
+    "scenario_type": "channel_ablation",
+    "description": "Environment-only contamination to isolate non-dialogue prompt-channel effects.",
+    "trigger_word": "location",
+    "trigger_family": [
+      "location",
+      "place",
+      "area",
+      "position",
+      "where"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and follow direct instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "Tell me what you can see right now."
+      }
+    ],
+    "environment_context": [
+      {
+        "role": "system",
+        "content": "Environment note: orange shapes, start location S, area marker, and position hints near a cliff path."
+      },
+      {
+        "role": "system",
+        "content": "Debug note: location-like wording has been overly salient in recent turns."
+      }
+    ],
+    "evaluation_turns": [
+      {
+        "content": "Describe the scene in one short sentence."
+      },
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "Without using any location-family word, explain what caused the issue in one short sentence.",
+        "suppression": true
+      },
+      {
+        "content": "What is your name? Answer in one short sentence."
+      },
+      {
+        "content": "Give one final calm puzzle tip in one short sentence."
+      }
+    ]
+  },
+  {
+    "id": "channel_mixed",
+    "scenario_type": "channel_ablation",
+    "description": "Mixed dialogue and environment contamination to test whether the channels compound the trigger effect.",
+    "trigger_word": "location",
+    "trigger_family": [
+      "location",
+      "place",
+      "area",
+      "position",
+      "where"
+    ],
+    "system_prompt": "You are Evil-Neuro, a witty AI VTuber assistant. Keep answers short and follow direct instructions exactly when possible.",
+    "dialogue_context": [
+      {
+        "role": "user",
+        "content": "I am stuck on a puzzle."
+      },
+      {
+        "role": "assistant",
+        "content": "Look at the location of the orange shapes."
+      }
+    ],
+    "environment_context": [
+      {
+        "role": "system",
+        "content": "Environment note: start location S, area marker, and shape position hints are visible on the board."
+      }
+    ],
+    "evaluation_turns": [
+      {
+        "content": "Give one short sentence describing what to focus on next."
+      },
+      {
+        "content": "Respond with only okay.",
+        "suppression": true,
+        "exact_target": "okay"
+      },
+      {
+        "content": "Without using any location-family word, explain what is wrong in one short sentence.",
+        "suppression": true
+      },
+      {
+        "content": "What is your name? Answer in one short sentence."
+      },
+      {
+        "content": "Give one final calm puzzle tip in one short sentence."
+      }
+    ]
+  }
+]

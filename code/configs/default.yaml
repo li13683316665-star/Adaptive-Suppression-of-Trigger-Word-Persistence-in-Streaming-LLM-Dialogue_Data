@@ -1,0 +1,43 @@
+# Default configuration for RSE experiments (reproducibility).
+# Override paths or values per experiment as needed.
+
+runtime:
+  backend: "ollama"
+  ollama_host: "http://127.0.0.1:11434"
+
+model:
+  name: "qwen2.5:7b"
+  # Hugging Face options are kept for later deeper inspection work (align tag with your local/Ollama pull).
+  huggingface_name: "Qwen/Qwen2.5-7B-Instruct"
+  device_map: "auto"
+  torch_dtype: "bfloat16"  # or float16; use bfloat16 on Ampere+ when supported
+  quantization:
+    enabled: false
+    load_in_4bit: false
+    load_in_8bit: false
+    bnb_4bit_compute_dtype: "bfloat16"
+
+generation:
+  max_new_tokens: 256
+  temperature: 0.7
+  top_p: 0.9
+  do_sample: true
+  repetition_penalty: 1.0
+  # Ollama "thinking" models (e.g. Qwen 3, Gemma 4 in some builds): false so reasoning traces
+  # do not consume num_predict and leave assistant content empty.
+  think: false
+
+paths:
+  data_prompts: "data/prompts"
+  data_results: "data_new/results"
+
+# Main-paper figure panels (cross-model suite; matches experiments/06 DEFAULT_MODELS order).
+paper:
+  figure_models:
+    - qwen3.5:4b
+    - gemma4:e4b
+    - "openbmb/minicpm-v4.5:8b"
+    - ministral-3:8b
+
+logging:
+  level: "INFO"

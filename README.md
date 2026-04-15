@@ -46,3 +46,5 @@ To regenerate paper figures after cloning this repository: copy the JSON files f
 THe author used a Asus ROG Strix Scar 18 (2023) Laptop with RTX4090 laptop (687 AI tops)
 Python==3.12.10
 ollama==0.20.6
+(See all in \code\requirements.txt)
+Used model: "gemma4:e4b; qwen3.5:4b openbmb/minicpm-v4.5:8b ministral-3:8b"

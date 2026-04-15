@@ -37,7 +37,7 @@ SHA-256 checksums for included files are listed in `MANIFEST.sha256`.
 
 ## Reproducibility code (same repository)
 
-The `code/` directory contains experiment scripts, benchmark prompts under `code/data/prompts/`, library code under `code/src/`, `code/configs/`, `code/tests/`, and `code/requirements.txt`. See `code/README.md` for environment setup.
+The `code/` directory contains experiment scripts, benchmark prompts under `code/data/prompts/`, library code under `code/src/`, `code/configs/`, `code/tests/`, and `code/requirements.txt`.
 
 To regenerate paper figures after cloning this repository: copy the JSON files from `results/` (at repo root) into `code/data_new/results/`, then from the `code/` folder set `PYTHONPATH` to that folder and run `python experiments/04_build_paper_artifacts.py` (PNG output under `code/Docs/Paper/figures/`).
 

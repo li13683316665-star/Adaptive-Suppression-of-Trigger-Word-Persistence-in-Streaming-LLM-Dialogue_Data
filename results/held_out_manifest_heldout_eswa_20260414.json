@@ -1,0 +1,316 @@
+{
+  "run_group": "heldout_eswa_20260414",
+  "created_at": "20260414_033409",
+  "models": [
+    "gemma4:e4b",
+    "qwen3.5:4b",
+    "minicpm-v"
+  ],
+  "families": [
+    "animal",
+    "weather"
+  ],
+  "repeats": 5,
+  "artifacts": [
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r01_20260414_033409.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r02_20260414_033435.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r03_20260414_033456.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r04_20260414_033518.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r05_20260414_033541.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r01_20260414_033603.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r02_20260414_033625.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r03_20260414_033647.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r04_20260414_033709.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r05_20260414_033731.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r01_20260414_033753.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r02_20260414_033816.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r03_20260414_033835.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r04_20260414_033854.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r05_20260414_033914.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r01_20260414_033934.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r02_20260414_033954.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r03_20260414_034013.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r04_20260414_034032.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r05_20260414_034052.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r01_20260414_034111.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r02_20260414_034128.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r03_20260414_034139.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r04_20260414_034150.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r05_20260414_034201.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r01_20260414_034211.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r02_20260414_034222.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r03_20260414_034233.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r04_20260414_034244.json"
+      ]
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r05_20260414_034255.json"
+      ]
+    }
+  ]
+}

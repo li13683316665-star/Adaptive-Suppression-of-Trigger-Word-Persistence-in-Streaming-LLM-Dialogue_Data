@@ -8,19 +8,20 @@ so every submission component can point to one authoritative URI strategy.
 
 - Preferred repository root: `https://github.com/li13683316665-star/Adaptive-Suppression-of-Trigger-Word-Persistence-in-Streaming-LLM-Dialogue_Data`
 - Fixed release/tag name: `eswa-20260415-freeze`
-- Primary benchmark run group: `minicpm_v45_incr_full_eswa_20260415_051850_suite`
+- Primary publication-figure export run group: `deepseek_v32_cross_20260415`
 - Optional DOI path: connect the repository to Zenodo after publishing the GitHub release.
 
-## Main-paper benchmark snapshot
+## Main-paper figure snapshot
 
 - `qwen3.5:4b`
 - `gemma4:e4b`
 - `openbmb/minicpm-v4.5:8b`
 - `ministral-3:8b`
+- `deepseek-chat`
 
-The archive includes the full `paper_*` export set and the matching cross-model manifest
-for the single frozen benchmark snapshot above. Earlier `20260414` exports are not part of
-the public submission-freeze narrative and should not be cited as the main-paper snapshot.
+The archive includes the current `paper_*` export set that matches the manuscript PNG figures
+under `Docs/Paper/figures/`. Although the export run-group slug starts with `deepseek`, the
+aggregated `paper_*.json` files contain the merged five-model snapshot used by the paper figures.
 
 ## Held-out materials
 
@@ -32,6 +33,7 @@ the public submission-freeze narrative and should not be cited as the main-paper
 
 ```
 results/        # frozen paper exports + manifests + held-out freeze manifest
+Docs/Paper/figures/  # current manuscript PNG figures (`Figure_4`-`Figure_9`, etc.)
 experiments/    # experiment runners and artifact builder
 data/prompts/   # development and held-out prompt suites
 src/            # detector, controller, metrics, loaders
@@ -44,9 +46,8 @@ ARCHIVE_RELEASE.md
 MANIFEST.sha256
 ```
 
-Publication PNG figures are included with filenames aligned as `Figure_X`.
-They are not the canonical evidence layer; regenerate them from the frozen `results/paper_*.json`
-exports with `experiments/04_build_paper_artifacts.py` when needed.
+Publication PNG figures are included under `Docs/Paper/figures/`.
+The paired `results/paper_*.json` files are the direct aggregated data exports behind those figures.
 
 ## Citation
 
@@ -67,3 +68,4 @@ See `ARCHIVE_RELEASE.md` for the exact local-to-GitHub release steps and the opt
 To bundle the entire local `data_new/` tree for deeper byte-level inspection, run from the project root:
 
 `python scripts/build_eswa_data_deposit.py --full-data-new`
+

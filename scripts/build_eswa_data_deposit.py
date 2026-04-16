@@ -5,8 +5,8 @@ This archive intentionally packages code, prompts, configs, tests, and the
 frozen result artifacts in ONE repository so the manuscript, cover letter, and
 research-data statement can all point to the same public URI strategy.
 
-Primary benchmark snapshot:
-  ``minicpm_v45_incr_full_eswa_20260415_051850_suite``
+Primary publication-figure export snapshot:
+  ``deepseek_v32_cross_20260415``
 
 The archive also writes a consolidated held-out manifest for the submission
 freeze and excludes repository-internal files from ``MANIFEST.sha256``.
@@ -32,9 +32,10 @@ ARCHIVE_REPO_URL = (
     "https://github.com/li13683316665-star/"
     "Adaptive-Suppression-of-Trigger-Word-Persistence-in-Streaming-LLM-Dialogue_Data"
 )
-PRIMARY_RUN_GROUP = "minicpm_v45_incr_full_eswa_20260415_051850_suite"
+PRIMARY_RUN_GROUP = "deepseek_v32_cross_20260415"
 CONSOLIDATED_HELDOUT_NAME = "held_out_manifest_eswa_20260415_freeze.json"
 RESULTS = ROOT / "data_new" / "results"
+PUBLIC_FIGURES_DIR = ROOT / "Docs" / "Paper" / "figures"
 PUBLIC_CODE_DIRS = (
     "experiments",
     "src",
@@ -152,6 +153,17 @@ def _copy_public_code_tree(out: Path, copied: list[str], missing: list[str]) -> 
             copied.append(rel)
 
 
+def _copy_public_figures(out: Path, copied: list[str], missing: list[str]) -> None:
+    if not PUBLIC_FIGURES_DIR.is_dir():
+        missing.append(str(PUBLIC_FIGURES_DIR.relative_to(ROOT)))
+        return
+    dest = out / "Docs" / "Paper" / "figures"
+    dest.mkdir(parents=True, exist_ok=True)
+    for path in sorted(PUBLIC_FIGURES_DIR.glob("*.png")):
+        shutil.copy2(path, dest / path.name)
+        copied.append(str(path.relative_to(ROOT)))
+
+
 def build_minimal(out: Path) -> tuple[list[str], list[str], str | None]:
     """Returns (copied_relative_paths, missing_relative_paths)."""
     copied: list[str] = []
@@ -190,6 +202,7 @@ def build_minimal(out: Path) -> tuple[list[str], list[str], str | None]:
         copied.append(f"results/{consolidated_name}")
 
     _copy_public_code_tree(out, copied, missing)
+    _copy_public_figures(out, copied, missing)
     return copied, missing, consolidated_name
 
 
@@ -205,19 +218,20 @@ def write_readme(out: Path, copied: list[str], full_data_new: bool, heldout_name
         "",
         f"- Preferred repository root: `{ARCHIVE_REPO_URL}`",
         f"- Fixed release/tag name: `{FROZEN_RELEASE_TAG}`",
-        f"- Primary benchmark run group: `{PRIMARY_RUN_GROUP}`",
+        f"- Primary publication-figure export run group: `{PRIMARY_RUN_GROUP}`",
         "- Optional DOI path: connect the repository to Zenodo after publishing the GitHub release.",
         "",
-        "## Main-paper benchmark snapshot",
+        "## Main-paper figure snapshot",
         "",
         "- `qwen3.5:4b`",
         "- `gemma4:e4b`",
         "- `openbmb/minicpm-v4.5:8b`",
         "- `ministral-3:8b`",
+        "- `deepseek-chat`",
         "",
-        "The archive includes the full `paper_*` export set and the matching cross-model manifest",
-        "for the single frozen benchmark snapshot above. Earlier `20260414` exports are not part of",
-        "the public submission-freeze narrative and should not be cited as the main-paper snapshot.",
+        "The archive includes the current `paper_*` export set that matches the manuscript PNG figures",
+        "under `Docs/Paper/figures/`. Although the export run-group slug starts with `deepseek`, the",
+        "aggregated `paper_*.json` files contain the merged five-model snapshot used by the paper figures.",
         "",
         "## Held-out materials",
         "",
@@ -233,6 +247,7 @@ def write_readme(out: Path, copied: list[str], full_data_new: bool, heldout_name
             "",
             "```",
             "results/        # frozen paper exports + manifests + held-out freeze manifest",
+            "Docs/Paper/figures/  # current manuscript PNG figures (`Figure_4`-`Figure_9`, etc.)",
             "experiments/    # experiment runners and artifact builder",
             "data/prompts/   # development and held-out prompt suites",
             "src/            # detector, controller, metrics, loaders",
@@ -245,8 +260,8 @@ def write_readme(out: Path, copied: list[str], full_data_new: bool, heldout_name
             "MANIFEST.sha256",
             "```",
             "",
-            "Publication PNG figures are not treated as the canonical evidence layer here.",
-            "They can be regenerated from the frozen JSON exports with `experiments/04_build_paper_artifacts.py`.",
+            "Publication PNG figures are included under `Docs/Paper/figures/`.",
+            "The paired `results/paper_*.json` files are the direct aggregated data exports behind those figures.",
             "",
         ]
     )
@@ -394,7 +409,7 @@ def main() -> int:
     if out.exists():
         if (out / ".git").is_dir():
             # Refresh public archive contents but preserve the git checkout itself.
-            for sub in ("results", "configs", "experiments", "src", "tests", "scripts", "data", "code"):
+            for sub in ("results", "configs", "experiments", "src", "tests", "scripts", "data", "Docs", "code"):
                 p = out / sub
                 if p.is_dir():
                     shutil.rmtree(p)

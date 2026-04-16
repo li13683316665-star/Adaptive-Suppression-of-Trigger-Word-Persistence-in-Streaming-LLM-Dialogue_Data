@@ -171,6 +171,12 @@ def _parse_args() -> argparse.Namespace:
             "(any timestamp). Use after a failure to continue without re-doing finished repeats."
         ),
     )
+    parser.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Chat backend for all subprocess scripts (Ollama or OpenAI-compatible e.g. DeepSeek).",
+    )
     ns = parser.parse_args()
     if getattr(ns, "ablation_only", False) and ns.skip_ablation:
         parser.error("--ablation-only cannot be combined with --skip-ablation")
@@ -207,6 +213,62 @@ def _run_and_capture(
     return created
 
 
+def _merge_manifest_artifacts(
+    previous: dict[str, object], current: dict[str, object]
+) -> dict[str, object]:
+    """Merge artifact lists when reusing an existing run_group.
+
+    This prevents an ablation-only or resume-only rerun from overwriting the older
+    baseline/compare/quality/method artifacts that were already recorded under the
+    same manifest file.
+    """
+    merged = dict(previous)
+    current_artifacts = list(current.get("artifacts", []))
+    prior_artifacts = list(previous.get("artifacts", []))
+
+    seen_keys: set[tuple[str, str, int, str, tuple[str, ...]]] = set()
+    merged_artifacts: list[dict[str, object]] = []
+    for artifact in prior_artifacts + current_artifacts:
+        if not isinstance(artifact, dict):
+            continue
+        key = (
+            str(artifact.get("kind", "")),
+            str(artifact.get("model", "")),
+            int(artifact.get("repeat_index", 0) or 0),
+            str(artifact.get("prompt_file", "")),
+            tuple(str(x) for x in artifact.get("files", []) or []),
+        )
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        merged_artifacts.append(dict(artifact))
+
+    merged["artifacts"] = merged_artifacts
+    for field in (
+        "backend",
+        "methods",
+        "baseline_repeats",
+        "compare_repeats",
+        "quality_repeats",
+        "ablation_repeats",
+        "detector_repeats",
+        "adaptive_repeats",
+        "families",
+        "prompt_difficulty",
+    ):
+        merged[field] = current.get(field, merged.get(field))
+
+    models = []
+    for source in (previous.get("models", []), current.get("models", [])):
+        for model in source:
+            if model not in models:
+                models.append(model)
+    merged["models"] = models
+    merged["run_group"] = current.get("run_group", previous.get("run_group"))
+    merged["created_at"] = current.get("created_at", previous.get("created_at"))
+    return merged
+
+
 def main() -> None:
     args = _parse_args()
     setup_logging("INFO")
@@ -232,6 +294,7 @@ def main() -> None:
     manifest: dict[str, object] = {
         "run_group": run_group,
         "created_at": timestamp,
+        "backend": args.backend,
         "models": args.models,
         "methods": args.methods,
         "baseline_repeats": args.baseline_repeats,
@@ -264,6 +327,8 @@ def main() -> None:
                         command=[
                             sys.executable,
                             "experiments/01_baseline_bias.py",
+                            "--backend",
+                            args.backend,
                             "--model",
                             model,
                             "--host",
@@ -301,6 +366,8 @@ def main() -> None:
                         command=[
                             sys.executable,
                             "experiments/02_algorithm_compare.py",
+                            "--backend",
+                            args.backend,
                             "--model",
                             model,
                             "--host",
@@ -341,6 +408,8 @@ def main() -> None:
                         command=[
                             sys.executable,
                             "experiments/05_quality_retention.py",
+                            "--backend",
+                            args.backend,
                             "--model",
                             model,
                             "--host",
@@ -379,6 +448,8 @@ def main() -> None:
                         command=[
                             sys.executable,
                             "experiments/07_detector_eval.py",
+                            "--backend",
+                            args.backend,
                             "--model",
                             model,
                             "--host",
@@ -416,6 +487,8 @@ def main() -> None:
                         command=[
                             sys.executable,
                             "experiments/08_adaptive_eval.py",
+                            "--backend",
+                            args.backend,
                             "--model",
                             model,
                             "--host",
@@ -457,6 +530,8 @@ def main() -> None:
                     command=[
                         sys.executable,
                         "experiments/01_baseline_bias.py",
+                        "--backend",
+                        args.backend,
                         "--model",
                         model,
                         "--host",
@@ -482,6 +557,12 @@ def main() -> None:
                 )
 
     manifest_path = results_dir / f"crossmodel_manifest_{run_group}.json"
+    if manifest_path.exists():
+        try:
+            previous_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            manifest = _merge_manifest_artifacts(previous_manifest, manifest)
+        except json.JSONDecodeError:
+            LOGGER.warning("Existing manifest is not valid JSON; overwriting: %s", manifest_path)
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     LOGGER.info("Saved run manifest to %s", manifest_path)
 

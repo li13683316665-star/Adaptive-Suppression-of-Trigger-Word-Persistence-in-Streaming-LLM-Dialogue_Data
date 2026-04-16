@@ -31,13 +31,14 @@ paths:
   data_prompts: "data/prompts"
   data_results: "data_new/results"
 
-# Main-paper figure panels (cross-model suite; matches experiments/06 DEFAULT_MODELS order).
+# Main-paper figure panels: default Ollama quartet + hosted DeepSeek-Chat (same tags as cross-model manifests).
 paper:
   figure_models:
     - qwen3.5:4b
     - gemma4:e4b
     - "openbmb/minicpm-v4.5:8b"
     - ministral-3:8b
+    - deepseek-chat
 
 logging:
   level: "INFO"

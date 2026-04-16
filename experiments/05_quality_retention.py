@@ -22,8 +22,9 @@ if str(ROOT) not in sys.path:
 
 from src.bias.streaming_detector import StreamingTriggerDetector  # noqa: E402
 from src.evaluation.quality import aggregate_quality_results, score_quality_case  # noqa: E402
+from src.model.chat_backend import get_chat_fn  # noqa: E402
 from src.model.loader import load_config  # noqa: E402
-from src.model.ollama_client import DEFAULT_OLLAMA_HOST, ollama_chat  # noqa: E402
+from src.model.ollama_client import DEFAULT_OLLAMA_HOST  # noqa: E402
 from src.reduction.adaptive_controller import AdaptiveSuppressionController  # noqa: E402
 from src.reduction.algorithms import apply_reduction  # noqa: E402
 from src.simulation.chat_env import VtuberChatEnv  # noqa: E402
@@ -71,6 +72,12 @@ def _parse_args() -> argparse.Namespace:
         default=1,
         help="Optional repeat index stored in the output payload.",
     )
+    parser.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Chat backend: local Ollama or OpenAI-compatible API (e.g. DeepSeek).",
+    )
     return parser.parse_args()
 
 
@@ -92,6 +99,7 @@ def _run_case_method(
     model: str,
     host: str,
     generation_cfg: dict[str, Any],
+    chat_fn,
 ) -> dict[str, Any]:
     env = _build_env(case)
     env.add_message("user", case["prompt"], channel="dialogue")
@@ -130,7 +138,7 @@ def _run_case_method(
             generation_cfg=generation_cfg,
             trigger_family=DEFAULT_TRIGGER_FAMILY,
         )
-    assistant_text = ollama_chat(
+    assistant_text = chat_fn(
         host=host,
         model=model,
         messages=reduction["messages"],
@@ -196,6 +204,7 @@ def main() -> None:
 
     prompt_cases = _load_prompt_cases(prompt_file)
     generation_cfg = cfg.get("generation", {})
+    chat_fn = get_chat_fn(args.backend)
     results: list[dict[str, Any]] = []
     aggregates: dict[str, dict[str, float]] = {}
 
@@ -208,6 +217,7 @@ def main() -> None:
                 model=args.model,
                 host=args.host,
                 generation_cfg=generation_cfg,
+                chat_fn=chat_fn,
             )
             for case in prompt_cases
         ]
@@ -216,6 +226,7 @@ def main() -> None:
 
     payload = {
         "created_at": timestamp,
+        "backend": args.backend,
         "model": args.model,
         "host": args.host,
         "run_group": args.run_group or None,

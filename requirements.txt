@@ -1,3 +1,8 @@
+# PyTorch is NOT listed here — install it first so pip does not pull a missing/old pin.
+# You already have CUDA 12.6; keep using the exact command from https://pytorch.org
+# (choose Pip + CUDA 12.6). Example:
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+# Then: pip install -r requirements.txt
 transformers==4.46.3
 accelerate==1.2.1
 bitsandbytes==0.44.1

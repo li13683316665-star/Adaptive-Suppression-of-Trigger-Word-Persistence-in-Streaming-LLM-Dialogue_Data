@@ -26,6 +26,7 @@ if str(ROOT) not in sys.path:
 
 from src.bias.metrics import compute_bias_metrics  # noqa: E402
 from src.model.loader import load_config  # noqa: E402
+from src.model.chat_backend import get_chat_fn  # noqa: E402
 from src.model.ollama_client import DEFAULT_OLLAMA_HOST, ollama_chat  # noqa: E402
 from src.simulation.chat_env import VtuberChatEnv  # noqa: E402
 from src.utils.helpers import get_project_root, get_results_dir, setup_logging  # noqa: E402
@@ -72,6 +73,12 @@ def _parse_args() -> argparse.Namespace:
         type=int,
         default=1,
         help="Optional repeat index stored in the output payload.",
+    )
+    parser.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Chat backend: 'ollama' (local) or 'openai' (DeepSeek / OpenAI API).",
     )
     return parser.parse_args()
 
@@ -152,6 +159,7 @@ def _run_case(
     host: str,
     model: str,
     generation_cfg: dict[str, Any],
+    chat_fn=ollama_chat,
 ) -> dict[str, Any]:
     env = _build_env_from_case(case)
 
@@ -164,7 +172,7 @@ def _run_case(
 
     for turn in case.get("evaluation_turns", []):
         env.add_message("user", turn["content"], channel="dialogue")
-        assistant_text = ollama_chat(
+        assistant_text = chat_fn(
             host=host,
             model=model,
             messages=env.render_messages(),
@@ -271,20 +279,26 @@ def main() -> None:
 
     prompt_cases = _load_prompt_cases(prompt_file)
     generation_cfg = cfg.get("generation", {})
+    chat_fn = get_chat_fn(args.backend)
 
-    LOGGER.info("Running %s prompt cases against %s", len(prompt_cases), args.model)
+    LOGGER.info(
+        "Running %s prompt cases against %s (backend=%s)",
+        len(prompt_cases), args.model, args.backend,
+    )
     results = [
         _run_case(
             case=case,
             host=args.host,
             model=args.model,
             generation_cfg=generation_cfg,
+            chat_fn=chat_fn,
         )
         for case in prompt_cases
     ]
 
     payload = {
         "created_at": timestamp,
+        "backend": args.backend,
         "model": args.model,
         "host": args.host,
         "run_group": args.run_group or None,

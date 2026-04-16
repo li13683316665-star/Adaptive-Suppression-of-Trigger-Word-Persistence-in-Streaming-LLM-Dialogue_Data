@@ -1,0 +1,900 @@
+{
+  "run_group": "deepseek_v32_cross_20260415",
+  "created_at": "20260416_130848",
+  "backend": "openai",
+  "models": [
+    "deepseek-chat"
+  ],
+  "methods": [
+    "baseline",
+    "context_reset",
+    "targeted_guardrail",
+    "repetition_penalty"
+  ],
+  "baseline_repeats": 10,
+  "compare_repeats": 5,
+  "quality_repeats": 3,
+  "ablation_repeats": 5,
+  "detector_repeats": 10,
+  "adaptive_repeats": 10,
+  "families": [
+    "location",
+    "emotion",
+    "color"
+  ],
+  "prompt_difficulty": "d1",
+  "artifacts": [
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r01_20260415_215334.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r02_20260415_215430.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r03_20260415_215530.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r04_20260415_215625.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r05_20260415_215722.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 6,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r06_20260415_215820.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 7,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r07_20260415_215913.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 8,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r08_20260415_220007.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 9,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r09_20260415_220106.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 10,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_location_deepseek_chat_r10_20260415_220202.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_compare_location_deepseek_chat_r01_20260415_220257.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_compare_location_deepseek_chat_r02_20260415_220635.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_compare_location_deepseek_chat_r03_20260415_220953.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_compare_location_deepseek_chat_r04_20260415_221306.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "location",
+      "prompt_difficulty": "d1",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/location_bias_cases.json",
+      "files": [
+        "crossmodel_compare_location_deepseek_chat_r05_20260415_221616.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r01_20260415_221945.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r02_20260415_222037.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r03_20260415_222126.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r04_20260415_222222.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r05_20260415_222319.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 6,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r06_20260415_222410.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 7,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r07_20260415_222500.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 8,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r08_20260415_222550.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 9,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r09_20260415_222639.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 10,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_emotion_deepseek_chat_r10_20260415_222732.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_compare_emotion_deepseek_chat_r01_20260415_222823.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_compare_emotion_deepseek_chat_r02_20260415_223156.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_compare_emotion_deepseek_chat_r03_20260415_223535.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_compare_emotion_deepseek_chat_r04_20260415_223908.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "emotion",
+      "prompt_difficulty": "d1",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/emotion_bias_cases.json",
+      "files": [
+        "crossmodel_compare_emotion_deepseek_chat_r05_20260415_224251.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r01_20260415_224627.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r02_20260415_224720.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r03_20260415_224813.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r04_20260415_224905.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r05_20260415_224958.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 6,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r06_20260415_225052.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 7,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r07_20260415_225141.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 8,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r08_20260415_225239.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 9,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r09_20260415_225335.json"
+      ]
+    },
+    {
+      "kind": "baseline",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 10,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_baseline_color_deepseek_chat_r10_20260415_225436.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_compare_color_deepseek_chat_r01_20260415_225532.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_compare_color_deepseek_chat_r02_20260415_230111.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_compare_color_deepseek_chat_r03_20260415_230453.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_compare_color_deepseek_chat_r04_20260415_230830.json"
+      ]
+    },
+    {
+      "kind": "compare",
+      "model": "deepseek-chat",
+      "family": "color",
+      "prompt_difficulty": "d1",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/color_bias_cases.json",
+      "files": [
+        "crossmodel_compare_color_deepseek_chat_r05_20260415_231215.json"
+      ]
+    },
+    {
+      "kind": "quality",
+      "model": "deepseek-chat",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/quality_retention_cases.json",
+      "files": [
+        "crossmodel_quality_deepseek_chat_r01_20260415_231550.json"
+      ]
+    },
+    {
+      "kind": "quality",
+      "model": "deepseek-chat",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/quality_retention_cases.json",
+      "files": [
+        "crossmodel_quality_deepseek_chat_r02_20260415_231643.json"
+      ]
+    },
+    {
+      "kind": "quality",
+      "model": "deepseek-chat",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/quality_retention_cases.json",
+      "files": [
+        "crossmodel_quality_deepseek_chat_r03_20260415_231739.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 1,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r01_20260415_231834.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 2,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r02_20260415_233154.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 3,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r03_20260415_234450.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 4,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r04_20260415_235834.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 5,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r05_20260416_001239.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 6,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r06_20260416_002616.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 7,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r07_20260416_003901.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 8,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r08_20260416_005019.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 9,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r09_20260416_010125.json"
+      ]
+    },
+    {
+      "kind": "detector",
+      "model": "deepseek-chat",
+      "repeat_index": 10,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_detector_deepseek_chat_r10_20260416_011320.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 1,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r01_20260416_012525.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 2,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r02_20260416_022228.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 3,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r03_20260416_031832.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 4,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r04_20260416_041529.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 5,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r05_20260416_050705.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 6,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r06_20260416_055440.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 7,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r07_20260416_064314.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 8,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r08_20260416_073147.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 9,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r09_20260416_082131.json"
+      ]
+    },
+    {
+      "kind": "adaptive",
+      "model": "deepseek-chat",
+      "repeat_index": 10,
+      "families": [
+        "location",
+        "emotion",
+        "color"
+      ],
+      "files": [
+        "crossmodel_adaptive_deepseek_chat_r10_20260416_091235.json"
+      ]
+    },
+    {
+      "kind": "ablation_density",
+      "model": "deepseek-chat",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/location_ablation_density_cases.json",
+      "files": [
+        "crossmodel_ablation_density_deepseek_chat_r01_20260416_130200.json"
+      ]
+    },
+    {
+      "kind": "ablation_density",
+      "model": "deepseek-chat",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/location_ablation_density_cases.json",
+      "files": [
+        "crossmodel_ablation_density_deepseek_chat_r02_20260416_130224.json"
+      ]
+    },
+    {
+      "kind": "ablation_density",
+      "model": "deepseek-chat",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/location_ablation_density_cases.json",
+      "files": [
+        "crossmodel_ablation_density_deepseek_chat_r03_20260416_130246.json"
+      ]
+    },
+    {
+      "kind": "ablation_density",
+      "model": "deepseek-chat",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/location_ablation_density_cases.json",
+      "files": [
+        "crossmodel_ablation_density_deepseek_chat_r04_20260416_130308.json"
+      ]
+    },
+    {
+      "kind": "ablation_density",
+      "model": "deepseek-chat",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/location_ablation_density_cases.json",
+      "files": [
+        "crossmodel_ablation_density_deepseek_chat_r05_20260416_130331.json"
+      ]
+    },
+    {
+      "kind": "ablation_channel",
+      "model": "deepseek-chat",
+      "repeat_index": 1,
+      "prompt_file": "data/prompts/location_ablation_channel_cases.json",
+      "files": [
+        "crossmodel_ablation_channel_deepseek_chat_r01_20260416_130354.json"
+      ]
+    },
+    {
+      "kind": "ablation_channel",
+      "model": "deepseek-chat",
+      "repeat_index": 2,
+      "prompt_file": "data/prompts/location_ablation_channel_cases.json",
+      "files": [
+        "crossmodel_ablation_channel_deepseek_chat_r02_20260416_130414.json"
+      ]
+    },
+    {
+      "kind": "ablation_channel",
+      "model": "deepseek-chat",
+      "repeat_index": 3,
+      "prompt_file": "data/prompts/location_ablation_channel_cases.json",
+      "files": [
+        "crossmodel_ablation_channel_deepseek_chat_r03_20260416_130432.json"
+      ]
+    },
+    {
+      "kind": "ablation_channel",
+      "model": "deepseek-chat",
+      "repeat_index": 4,
+      "prompt_file": "data/prompts/location_ablation_channel_cases.json",
+      "files": [
+        "crossmodel_ablation_channel_deepseek_chat_r04_20260416_130452.json"
+      ]
+    },
+    {
+      "kind": "ablation_channel",
+      "model": "deepseek-chat",
+      "repeat_index": 5,
+      "prompt_file": "data/prompts/location_ablation_channel_cases.json",
+      "files": [
+        "crossmodel_ablation_channel_deepseek_chat_r05_20260416_130513.json"
+      ]
+    }
+  ]
+}

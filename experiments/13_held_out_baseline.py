@@ -3,8 +3,8 @@ Held-out trigger families: baseline-only generalization benchmark.
 
 Runs the baseline script over families excluded from calibration (e.g.\
 animal, weather) without re-tuning STD weights, to assess external validity.
-Produces a manifest JSON under ``data/results/``. Execution:
-``python experiments/13_held_out_baseline.py``.
+Produces a manifest JSON under the configured results directory. Execution:
+``python experiments/13_held_out_baseline.py`` (add ``--backend openai`` and set ``OPENAI_API_KEY`` for hosted models).
 """
 
 from __future__ import annotations
@@ -58,6 +58,12 @@ def _parse_args() -> argparse.Namespace:
         "--resume",
         action="store_true",
         help="Skip when heldout_baseline_<stem>_*.json already exists for that output stem.",
+    )
+    p.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Forwarded to experiments/01_baseline_bias.py (use openai for DeepSeek / OpenAI-compatible APIs).",
     )
     return p.parse_args()
 
@@ -131,6 +137,8 @@ def main() -> None:
                         model,
                         "--host",
                         args.host,
+                        "--backend",
+                        args.backend,
                         "--prompt-file",
                         rel,
                         "--output-stem",

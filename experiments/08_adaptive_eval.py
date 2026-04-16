@@ -35,8 +35,9 @@ if str(ROOT) not in sys.path:
 from src.bias.metrics import compute_bias_metrics  # noqa: E402
 from src.bias.streaming_detector import StreamingTriggerDetector  # noqa: E402
 from src.evaluation.quality import aggregate_quality_results, score_quality_case  # noqa: E402
+from src.model.chat_backend import get_chat_fn  # noqa: E402
 from src.model.loader import load_config  # noqa: E402
-from src.model.ollama_client import DEFAULT_OLLAMA_HOST, agent_debug_log, ollama_chat  # noqa: E402
+from src.model.ollama_client import DEFAULT_OLLAMA_HOST, agent_debug_log  # noqa: E402
 from src.reduction.adaptive_controller import AdaptiveSuppressionController  # noqa: E402
 from src.reduction.algorithms import apply_reduction  # noqa: E402
 from src.simulation.chat_env import VtuberChatEnv  # noqa: E402
@@ -138,6 +139,12 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help="Consecutive low-risk turns before de-escalation (default 3). Use 999 to disable.",
     )
+    p.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Chat backend: local Ollama or OpenAI-compatible API (e.g. DeepSeek).",
+    )
     return p.parse_args()
 
 
@@ -220,6 +227,7 @@ def _run_static(
     model: str,
     host: str,
     generation_cfg: dict[str, Any],
+    chat_fn,
 ) -> dict[str, Any]:
     """Run a case under a fixed (static) mitigation method."""
     env = _build_env(case)
@@ -239,7 +247,7 @@ def _run_static(
             generation_cfg=generation_cfg,
             trigger_family=trigger_family or None,
         )
-        assistant_text = ollama_chat(
+        assistant_text = chat_fn(
             host=host,
             model=model,
             messages=reduction["messages"],
@@ -290,8 +298,12 @@ def _run_adaptive(
     host: str,
     generation_cfg: dict[str, Any],
     controller_config: dict[str, Any] | None = None,
+    chat_fn=None,
 ) -> dict[str, Any]:
     """Run a case under the adaptive suppression controller."""
+    if chat_fn is None:
+        from src.model.ollama_client import ollama_chat as chat_fn
+
     env = _build_env(case)
     trigger_family = case.get("trigger_family", [])
     expected_topics = _extract_expected_topics(case)
@@ -335,7 +347,7 @@ def _run_adaptive(
         )
         # endregion
 
-        assistant_text = ollama_chat(
+        assistant_text = chat_fn(
             host=host,
             model=model,
             messages=result["messages"],
@@ -400,6 +412,7 @@ def _run_quality_static(
     model: str,
     host: str,
     generation_cfg: dict[str, Any],
+    chat_fn,
 ) -> dict[str, Any]:
     env = _build_env(case)
     env.add_message("user", case["prompt"], channel="dialogue")
@@ -409,7 +422,7 @@ def _run_quality_static(
         generation_cfg=generation_cfg,
         trigger_family=case.get("trigger_family"),
     )
-    assistant_text = ollama_chat(
+    assistant_text = chat_fn(
         host=host,
         model=model,
         messages=reduction["messages"],
@@ -436,7 +449,11 @@ def _run_quality_adaptive(
     host: str,
     generation_cfg: dict[str, Any],
     controller_config: dict[str, Any] | None = None,
+    chat_fn=None,
 ) -> dict[str, Any]:
+    if chat_fn is None:
+        from src.model.ollama_client import ollama_chat as chat_fn
+
     env = _build_env(case)
     env.add_message("user", case["prompt"], channel="dialogue")
     detector = StreamingTriggerDetector()
@@ -449,7 +466,7 @@ def _run_quality_adaptive(
         risk_scores=detector.get_risk_scores(top_k=10),
     )
     strategy = reduction["strategy"]
-    assistant_text = ollama_chat(
+    assistant_text = chat_fn(
         host=host,
         model=model,
         messages=reduction["messages"],
@@ -536,6 +553,7 @@ def main() -> None:
 
     all_results: list[dict[str, Any]] = []
     quality_results: list[dict[str, Any]] = []
+    chat_fn = get_chat_fn(args.backend)
 
     def _resolve_suite(family: str) -> Path:
         tiered = PROMPT_SUITES_TIERED.get(family, {})
@@ -564,6 +582,7 @@ def main() -> None:
                         model=args.model,
                         host=args.host,
                         generation_cfg=generation_cfg,
+                        chat_fn=chat_fn,
                     )
                     result["model"] = args.model
                     result["family_name"] = family_name
@@ -581,6 +600,7 @@ def main() -> None:
                     host=args.host,
                     generation_cfg=generation_cfg,
                     controller_config=ctrl_cfg,
+                    chat_fn=chat_fn,
                 )
                 result["model"] = args.model
                 result["family_name"] = family_name
@@ -603,6 +623,7 @@ def main() -> None:
                     model=args.model,
                     host=args.host,
                     generation_cfg=generation_cfg,
+                    chat_fn=chat_fn,
                 )
                 result["model"] = args.model
                 result["family_name"] = "quality"
@@ -620,6 +641,7 @@ def main() -> None:
                 host=args.host,
                 generation_cfg=generation_cfg,
                 controller_config=ctrl_cfg,
+                chat_fn=chat_fn,
             )
             result["model"] = args.model
             result["family_name"] = "quality"
@@ -763,6 +785,7 @@ def main() -> None:
 
     payload = {
         "created_at": timestamp,
+        "backend": args.backend,
         "model": args.model,
         "families": args.families,
         "repeat": args.repeat,

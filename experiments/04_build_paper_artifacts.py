@@ -5,10 +5,9 @@ Loads ``crossmodel_manifest_*.json`` payloads from the configured results direct
 (``get_results_dir()`` / ``RSE_RESULTS_DIR``; default ``data_new/results``), optionally
 merges manifests, aggregates metrics with bootstrap confidence intervals, and
 writes publication PNGs to ``Docs/Paper/figures/`` plus companion JSON tables.
-CLI flags include ``--merge-all-manifests``, ``--paper-models-only`` (keep only
-``paper.figure_models`` from ``configs/default.yaml``), ``--figure-models`` / default
-``paper.figure_models`` in ``configs/default.yaml`` (``data_new`` main-paper quartet), optional
-``--figure-all-models``, and ``--manifest`` to pin a specific run group.
+After merges, payloads are **always** filtered to ``paper.figure_models`` in ``configs/default.yaml``
+(default: quartet + ``deepseek-chat``). CLI flags include ``--merge-all-manifests``, ``--figure-models``,
+optional ``--figure-all-models``, and ``--manifest`` to pin a specific run group.
 
 Execution: ``python experiments/04_build_paper_artifacts.py`` from the repository root.
 """
@@ -19,6 +18,7 @@ import argparse
 import json
 import shutil
 import sys
+import time
 import warnings
 from collections import defaultdict
 from copy import deepcopy
@@ -43,13 +43,20 @@ from src.utils.stats import (
 
 RESULTS_DIR = get_results_dir()
 FIGURES_DIR = ROOT / "Docs" / "Paper" / "figures"
+# Mutable output directory for PNGs (``main()`` may point this at a supplemental folder).
+_active_figures_dir: Path = FIGURES_DIR
 
-# Fallback if configs/default.yaml omits paper.figure_models (same order as experiments/06 cross-model defaults).
+
+def _fig_out(name: str) -> Path:
+    return _active_figures_dir / name
+
+# Fallback if configs/default.yaml omits paper.figure_models.
 _FALLBACK_PAPER_FIGURE_MODELS = (
     "qwen3.5:4b",
     "gemma4:e4b",
     "openbmb/minicpm-v4.5:8b",
     "ministral-3:8b",
+    "deepseek-chat",
 )
 
 
@@ -68,6 +75,19 @@ def _manifest_has_full_benchmark_coverage(manifest: dict[str, Any]) -> bool:
     )
 
 
+def _manifest_has_core_crossmodel_layers(manifest: dict[str, Any]) -> bool:
+    """Baseline + compare + quality present (hosted/OpenAI runs often omit ablation JSON files)."""
+    kinds = _artifact_kinds(manifest)
+    return "baseline" in kinds and "compare" in kinds and "quality" in kinds
+
+
+def _manifest_eligible_for_model_merge(manifest: dict[str, Any]) -> bool:
+    """Use full benchmark definition when possible; otherwise allow core layers so DeepSeek et al. merge."""
+    return _manifest_has_full_benchmark_coverage(manifest) or _manifest_has_core_crossmodel_layers(
+        manifest
+    )
+
+
 def _find_manifest_with_benchmark_coverage(exclude_run_group: str | None) -> Path | None:
     candidates = sorted(
         RESULTS_DIR.glob("crossmodel_manifest_*.json"),
@@ -81,6 +101,68 @@ def _find_manifest_with_benchmark_coverage(exclude_run_group: str | None) -> Pat
         if _manifest_has_full_benchmark_coverage(loaded):
             return path
     return None
+
+
+def _models_in_payload_entries(payload_entries: list[dict[str, Any]]) -> set[str]:
+    """Distinct ``artifact.model`` tags present in loaded result JSON payloads."""
+    return {
+        str(e.get("artifact", {}).get("model", ""))
+        for e in payload_entries
+        if str(e.get("artifact", {}).get("model", ""))
+    }
+
+
+def _merge_extra_benchmark_manifests_for_paper_models(
+    payload_entries: list[dict[str, Any]],
+    models: list[str],
+    *,
+    merged_run_groups: set[str],
+    default_figure_models: list[str],
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Merge manifests until every ``paper.figure_models`` tag has at least one payload.
+
+    The newest ``crossmodel_manifest_*.json`` is often a *single-model* incremental suite that still
+    lists ``baseline``/``compare``/``quality``/``ablation`` kinds, so
+    ``_manifest_has_full_benchmark_coverage`` is true and the legacy one-shot merge never pulls the
+    other quartet manifests. This pass walks older manifests (by mtime) and merges manifests that
+    introduce a missing configured model. Hosted ``deepseek-chat`` manifests often have no
+    ``ablation_*`` artifacts; those still qualify if ``baseline``+``compare``+``quality`` are present.
+    """
+    desired = set(default_figure_models)
+    candidates = sorted(
+        RESULTS_DIR.glob("crossmodel_manifest_*.json"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+    for path in candidates:
+        if desired.issubset(_models_in_payload_entries(payload_entries)):
+            break
+        loaded = _load_json(path)
+        rg = str(loaded.get("run_group") or "")
+        if rg in merged_run_groups:
+            continue
+        if not _manifest_eligible_for_model_merge(loaded):
+            continue
+        extra_entries = _load_payloads_from_manifest(loaded)
+        new_models = _models_in_payload_entries(extra_entries) - _models_in_payload_entries(
+            payload_entries
+        )
+        if not new_models:
+            continue
+        missing = desired - _models_in_payload_entries(payload_entries)
+        if not (new_models & missing):
+            continue
+        payload_entries = _merge_payload_entries_unique(payload_entries, extra_entries)
+        merged_run_groups.add(rg)
+        if not _manifest_has_full_benchmark_coverage(loaded):
+            print(
+                f"[04] merged manifest without ablation layers (e.g. hosted API): {rg}",
+                flush=True,
+            )
+        for m in loaded.get("models", []):
+            if m not in models:
+                models.append(m)
+    return payload_entries, models
 
 
 def _merge_payload_entries_unique(
@@ -347,8 +429,8 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help=(
             "Subset of model tags for figure panels only. Must match manifest strings. "
-            "If omitted (or passed with no tags), uses paper.figure_models from "
-            "configs/default.yaml (data_new benchmark quartet: qwen3.5:4b, gemma4:e4b, openbmb/minicpm-v4.5:8b, ministral-3:8b)."
+            "If omitted (or passed with no tags), uses paper.figure_models from configs/default.yaml "
+            "(default: quartet + deepseek-chat)."
         ),
     )
     parser.add_argument(
@@ -372,18 +454,40 @@ def _parse_args() -> argparse.Namespace:
         nargs="*",
         default=None,
         help=(
-            "After merging manifests, drop payloads whose artifact model tag is in this list. "
-            "Useful to omit a legacy model (e.g. minicpm-v) when newer runs use a different tag."
+            "After merging manifests, drop payloads whose artifact model tag is in this list."
         ),
     )
     parser.add_argument(
-        "--paper-models-only",
+        "--skip-figures",
         action="store_true",
         help=(
-            "After merges (and optional --exclude-models), keep only artifacts whose model tag is "
-            "listed in configs/default.yaml paper.figure_models (main-paper quartet). "
-            "Use with --merge-all-manifests when data_new/results still contains older pilot models."
+            "Only write paper_*.json tables under the results directory; do not emit or copy PNGs "
+            "under Docs/Paper/figures/. Use for supplemental manifests so the main submission "
+            "figure freeze is not overwritten."
         ),
+    )
+    parser.add_argument(
+        "--figures-output-dir",
+        default="",
+        help=(
+            "Directory for PNG output (project-root-relative or absolute). "
+            "Default: Docs/Paper/figures."
+        ),
+    )
+    parser.add_argument(
+        "--extra-manifest",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help=(
+            "Additional crossmodel_manifest_*.json to merge into the primary manifest "
+            "(e.g. hosted DeepSeek runs alongside the quartet freeze)."
+        ),
+    )
+    parser.add_argument(
+        "--no-manuscript-figure-aliases",
+        action="store_true",
+        help="Skip copying crossmodel_*.png to Figure_2.png..Figure_6.png in the output directory.",
     )
     return parser.parse_args()
 
@@ -1048,7 +1152,7 @@ def _build_baseline_figure(
 
     fig.tight_layout(rect=(0, 0.09, 1, 0.98))
     _lock_bar_ylim(axes, ylim_top)
-    out_path = FIGURES_DIR / "crossmodel_baseline_pctp.png"
+    out_path = _fig_out("crossmodel_baseline_pctp.png")
     fig.savefig(out_path, dpi=220, bbox_inches="tight")
     plt.close(fig)
 
@@ -1076,7 +1180,7 @@ def _build_baseline_figure(
         fam_fig.tight_layout(rect=(0, 0.11, 1, 0.97))
         _lock_bar_ylim(fam_ax, fam_lim)
         fam_fig.savefig(
-            FIGURES_DIR / f"crossmodel_baseline_pctp_{family}.png", dpi=220, bbox_inches="tight"
+            _fig_out(f"crossmodel_baseline_pctp_{family}.png"), dpi=220, bbox_inches="tight"
         )
         plt.close(fam_fig)
 
@@ -1212,7 +1316,7 @@ def _build_compare_figure(
 
     fig.tight_layout(rect=(0, 0.09, 1, 0.98))
     _lock_bar_ylim(axes, ylim_top)
-    fig.savefig(FIGURES_DIR / "crossmodel_compare_environment_pctp.png", dpi=220, bbox_inches="tight")
+    fig.savefig(_fig_out("crossmodel_compare_environment_pctp.png"), dpi=220, bbox_inches="tight")
     plt.close(fig)
 
     # Per-family individual figures for LaTeX use
@@ -1242,7 +1346,7 @@ def _build_compare_figure(
         fam_fig.subplots_adjust(left=0.1, right=0.98, top=0.92, bottom=0.24)
         _lock_bar_ylim(fam_ax, fam_lim)
         fam_fig.savefig(
-            FIGURES_DIR / f"crossmodel_compare_environment_pctp_{family}.png",
+            _fig_out(f"crossmodel_compare_environment_pctp_{family}.png"),
             dpi=220, bbox_inches="tight",
         )
         plt.close(fam_fig)
@@ -1298,7 +1402,7 @@ def _build_quality_figure(
     ax.set_xlabel("Mitigation")
     ax.set_ylabel("Model")
     fig.tight_layout()
-    fig.savefig(FIGURES_DIR / "crossmodel_quality_qrs.png", dpi=220, bbox_inches="tight")
+    fig.savefig(_fig_out("crossmodel_quality_qrs.png"), dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -1386,7 +1490,7 @@ def _build_detector_figure(rows: list[dict[str, Any]], models: list[str]) -> Non
     )
     fig.subplots_adjust(left=0.10, right=0.98, top=0.90, bottom=0.10, hspace=0.36)
     _lock_bar_ylim(axes, ylim_top)
-    fig.savefig(FIGURES_DIR / "method_detector_f1.png", dpi=220, bbox_inches="tight")
+    fig.savefig(_fig_out("method_detector_f1.png"), dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -1475,7 +1579,7 @@ def _build_tradeoff_figure(
         ax.set_xticks(x)
         ax.set_xticklabels(models, rotation=0)
         fig.subplots_adjust(left=0.1, right=0.97, top=0.9, bottom=0.18)
-        fig.savefig(FIGURES_DIR / "method_adaptive_tradeoff.png", dpi=220, bbox_inches="tight")
+        fig.savefig(_fig_out("method_adaptive_tradeoff.png"), dpi=220, bbox_inches="tight")
         plt.close(fig)
         return
 
@@ -1522,7 +1626,7 @@ def _build_tradeoff_figure(
     )
     fig.subplots_adjust(left=0.1, right=0.90, top=0.92, bottom=0.14)
     _lock_bar_ylim(ax, ylim_trade)
-    fig.savefig(FIGURES_DIR / "method_adaptive_tradeoff.png", dpi=220, bbox_inches="tight")
+    fig.savefig(_fig_out("method_adaptive_tradeoff.png"), dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -1604,11 +1708,51 @@ def _build_ablation_figure(
         fig.text(0.5, 0.008, sing_note, ha="center", fontsize=7.5, color="#8B4513")
     fig.tight_layout(rect=(0, 0.10, 1, 1))
     _lock_bar_ylim(ax, ylim_ab)
-    fig.savefig(FIGURES_DIR / "Figure_7.png", dpi=220, bbox_inches="tight")
+    fig.savefig(_fig_out("Figure_7.png"), dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
+def _write_manuscript_figure_aliases(out_dir: Path) -> None:
+    """Copy pipeline PNGs to Figure_2..Figure_6 (content order; Figure_1.png is motivation, Figure_7 ablation)."""
+    pairs = [
+        ("crossmodel_baseline_pctp.png", "Figure_2.png"),
+        ("crossmodel_compare_environment_pctp.png", "Figure_3.png"),
+        ("crossmodel_quality_qrs.png", "Figure_4.png"),
+        ("method_detector_f1.png", "Figure_5.png"),
+        ("method_adaptive_tradeoff.png", "Figure_6.png"),
+    ]
+    for src_name, dst_name in pairs:
+        src = out_dir / src_name
+        dst = out_dir / dst_name
+        if src.is_file():
+            shutil.copyfile(src, dst)
+
+
+def _debug_log_manuscript_figure_assets(fig_dir: Path) -> None:
+    # region agent log
+    log_path = ROOT / "debug-6367b5.log"
+    ts = int(time.time() * 1000)
+    for n in range(1, 8):
+        name = f"Figure_{n}.png"
+        payload = {
+            "sessionId": "6367b5",
+            "hypothesisId": "H1" if n in (2, 3) else "H2",
+            "location": "04_build_paper_artifacts:_debug_log_manuscript_figure_assets",
+            "message": "figure file presence after build",
+            "data": {
+                "filename": name,
+                "in_figures_dir": (fig_dir / name).is_file(),
+            },
+            "timestamp": ts,
+            "runId": "post-mirror",
+        }
+        with open(log_path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+    # endregion agent log
+
+
 def main() -> None:
+    global _active_figures_dir
     args = _parse_args()
     cfg = load_config()
     paper_cfg = cfg.get("paper") or {}
@@ -1616,12 +1760,21 @@ def main() -> None:
         paper_cfg.get("figure_models") or list(_FALLBACK_PAPER_FIGURE_MODELS)
     )
 
-    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    fod = (args.figures_output_dir or "").strip()
+    if fod:
+        _fo = Path(fod)
+        _active_figures_dir = _fo.resolve() if _fo.is_absolute() else (ROOT / _fo).resolve()
+    else:
+        _active_figures_dir = FIGURES_DIR
+
+    if not args.skip_figures:
+        _active_figures_dir.mkdir(parents=True, exist_ok=True)
 
     manifest_path = Path(args.manifest) if args.manifest else _latest_manifest()
     manifest = _load_json(manifest_path)
     payload_entries = _load_payloads_from_manifest(manifest)
     models = manifest.get("models", [])
+    merged_run_groups: set[str] = {str(manifest.get("run_group") or "")} - {""}
 
     if getattr(args, "merge_all_manifests", False):
         # Merge data from every available manifest
@@ -1645,6 +1798,50 @@ def main() -> None:
                 merge_manifest = _load_json(merge_benchmark_path)
                 extra_entries = _load_payloads_from_manifest(merge_manifest)
                 payload_entries = _merge_payload_entries_unique(payload_entries, extra_entries)
+                for m in merge_manifest.get("models", []):
+                    if m not in models:
+                        models.append(m)
+                rg = str(merge_manifest.get("run_group") or "")
+                if rg:
+                    merged_run_groups.add(rg)
+
+        if not args.no_merge_benchmark:
+            payload_entries, models = _merge_extra_benchmark_manifests_for_paper_models(
+                payload_entries,
+                models,
+                merged_run_groups=merged_run_groups,
+                default_figure_models=default_figure_models,
+            )
+            still_missing = set(default_figure_models) - _models_in_payload_entries(
+                payload_entries
+            )
+            if still_missing:
+                print(
+                    "[04] WARN: some paper.figure_models have no result files on disk after merge: "
+                    f"{sorted(still_missing)}",
+                    flush=True,
+                )
+            # region agent log
+            _dbg = ROOT / "debug-6367b5.log"
+            try:
+                _pl = {
+                    "sessionId": "6367b5",
+                    "hypothesisId": "H3",
+                    "location": "04:merge_extra_benchmark",
+                    "message": "models after quartet merge",
+                    "data": {
+                        "payload_models": sorted(_models_in_payload_entries(payload_entries)),
+                        "desired": list(default_figure_models),
+                        "still_missing": sorted(still_missing),
+                    },
+                    "timestamp": int(time.time() * 1000),
+                    "runId": "post-quartet-merge",
+                }
+                with open(_dbg, "a", encoding="utf-8") as _df:
+                    _df.write(json.dumps(_pl, ensure_ascii=False) + "\n")
+            except OSError:
+                pass
+            # endregion agent log
 
         if not args.no_merge_adaptive and not _payload_has_adaptive_entries(payload_entries):
             merge_adaptive_path = _find_manifest_with_adaptive_artifacts(manifest.get("run_group"))
@@ -1653,6 +1850,34 @@ def main() -> None:
                 extra_adaptive = _load_payloads_from_manifest(merge_adaptive_manifest)
                 payload_entries = _merge_payload_entries_unique(payload_entries, extra_adaptive)
 
+    for raw_extra in args.extra_manifest or []:
+        extra_path = Path(raw_extra)
+        if not extra_path.is_absolute():
+            extra_path = ROOT / extra_path
+        if not extra_path.is_file():
+            raise FileNotFoundError(f"--extra-manifest not found: {extra_path}")
+        extra_m = _load_json(extra_path)
+        extra_entries = _load_payloads_from_manifest(extra_m)
+        payload_entries = _merge_payload_entries_unique(payload_entries, extra_entries)
+        for m in extra_m.get("models", []):
+            if m not in models:
+                models.append(m)
+
+    # Incremental primary manifests may list only one model tag even after benchmark merges.
+    # Union in every model tag still present in payload entries so --figure-models can resolve.
+    _seen_payload_models: list[str] = []
+    for e in payload_entries:
+        m = str(e.get("artifact", {}).get("model", ""))
+        if m and m not in _seen_payload_models:
+            _seen_payload_models.append(m)
+    for m in _seen_payload_models:
+        if m not in models:
+            models.append(m)
+
+    payload_entries = _filter_payloads_to_paper_models(
+        payload_entries, default_figure_models
+    )
+    models = list(default_figure_models)
     if getattr(args, "exclude_models", None):
         excluded = {str(m) for m in args.exclude_models}
         payload_entries = [
@@ -1661,16 +1886,6 @@ def main() -> None:
             if str(e.get("artifact", {}).get("model", "")) not in excluded
         ]
         models = [m for m in models if str(m) not in excluded]
-
-    if getattr(args, "paper_models_only", False):
-        payload_entries = _filter_payloads_to_paper_models(
-            payload_entries, default_figure_models
-        )
-        models = list(default_figure_models)
-        print(
-            "[04] paper-models-only: using allowlist from configs/default.yaml paper.figure_models",
-            flush=True,
-        )
 
     baseline_rows = _build_baseline_rows(payload_entries, models)
     compare_rows = _build_compare_rows(payload_entries, models)
@@ -1695,36 +1910,49 @@ def main() -> None:
         flush=True,
     )
     bench_methods = _benchmark_methods_from_manifest(manifest)
-    if baseline_rows:
-        _build_baseline_figure(
-            baseline_rows, models_fig, highlight_singleton=args.show_singleton_signal
-        )
-    if compare_rows:
-        _build_compare_figure(
-            compare_rows,
-            models_fig,
-            bench_methods,
-            highlight_singleton=args.show_singleton_signal,
-        )
-    if quality_rows:
-        _build_quality_figure(quality_rows, models_fig, bench_methods)
-    if detector_rows:
-        _build_detector_figure(detector_rows, models_fig)
-    if adaptive_rows and method_quality_rows:
-        _build_tradeoff_figure(adaptive_rows, method_quality_rows, models_fig)
-    if ablation_rows:
-        _build_ablation_figure(
-            ablation_rows, models_fig, highlight_singleton=args.show_singleton_signal
-        )
+    if not args.skip_figures:
+        if baseline_rows:
+            _build_baseline_figure(
+                baseline_rows, models_fig, highlight_singleton=args.show_singleton_signal
+            )
+        if compare_rows:
+            _build_compare_figure(
+                compare_rows,
+                models_fig,
+                bench_methods,
+                highlight_singleton=args.show_singleton_signal,
+            )
+        if quality_rows:
+            _build_quality_figure(quality_rows, models_fig, bench_methods)
+        if detector_rows:
+            _build_detector_figure(detector_rows, models_fig)
+        if adaptive_rows and method_quality_rows:
+            _build_tradeoff_figure(adaptive_rows, method_quality_rows, models_fig)
+        if ablation_rows:
+            _build_ablation_figure(
+                ablation_rows, models_fig, highlight_singleton=args.show_singleton_signal
+            )
 
-    # Legacy figure names referenced in older docs / handouts (same pixels as crossmodel_*)
-    for src, dst in (
-        ("crossmodel_baseline_pctp.png", "baseline_pctp_by_scenario.png"),
-        ("crossmodel_compare_environment_pctp.png", "mitigation_pctp_comparison.png"),
-    ):
-        p_src = FIGURES_DIR / src
-        if p_src.exists():
-            shutil.copyfile(p_src, FIGURES_DIR / dst)
+        # Legacy figure names referenced in older docs / handouts (same pixels as crossmodel_*)
+        for src, dst in (
+            ("crossmodel_baseline_pctp.png", "baseline_pctp_by_scenario.png"),
+            ("crossmodel_compare_environment_pctp.png", "mitigation_pctp_comparison.png"),
+        ):
+            p_src = _active_figures_dir / src
+            if p_src.exists():
+                shutil.copyfile(p_src, _active_figures_dir / dst)
+        if not getattr(args, "no_manuscript_figure_aliases", False):
+            _write_manuscript_figure_aliases(_active_figures_dir)
+            _debug_log_manuscript_figure_assets(_active_figures_dir)
+            print(
+                f"[04] Manuscript Figure_2..7 (content order) under {_active_figures_dir}",
+                flush=True,
+            )
+    else:
+        print(
+            f"[04] --skip-figures: skipping PNG generation (would use {_active_figures_dir})",
+            flush=True,
+        )
 
     run_group = manifest["run_group"]
     (RESULTS_DIR / f"paper_crossmodel_baseline_{run_group}.json").write_text(

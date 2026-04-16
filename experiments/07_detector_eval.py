@@ -32,8 +32,9 @@ from src.bias.streaming_detector import (  # noqa: E402
     StreamingTriggerDetector,
     std_weights_leave_one_out,
 )
+from src.model.chat_backend import get_chat_fn  # noqa: E402
 from src.model.loader import load_config  # noqa: E402
-from src.model.ollama_client import DEFAULT_OLLAMA_HOST, ollama_chat  # noqa: E402
+from src.model.ollama_client import DEFAULT_OLLAMA_HOST  # noqa: E402
 from src.simulation.chat_env import VtuberChatEnv  # noqa: E402
 from src.utils.helpers import get_project_root, get_results_dir, setup_logging  # noqa: E402
 from src.utils.stats import summarize_distribution  # noqa: E402
@@ -95,6 +96,12 @@ def _parse_args() -> argparse.Namespace:
         choices=["", "f_freq", "f_surv", "f_leak", "f_pers", "f_lag"],
         help="Leave-one-signal-out ablation: zero this signal's weight and renormalize.",
     )
+    p.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Chat backend: local Ollama or OpenAI-compatible API (e.g. DeepSeek).",
+    )
     return p.parse_args()
 
 
@@ -134,8 +141,12 @@ def _run_case(
     risk_threshold: float,
     top_k: int,
     std_drop_signal: str = "",
+    chat_fn=None,
 ) -> dict[str, Any]:
     """Run one case and return detector evaluation metrics."""
+    if chat_fn is None:
+        from src.model.ollama_client import ollama_chat as chat_fn
+
     env = _build_env(case)
     wcfg = std_weights_leave_one_out(std_drop_signal or None)
     detector = StreamingTriggerDetector(config=wcfg)
@@ -156,7 +167,7 @@ def _run_case(
         detector.observe_turn(turn["content"], "user", "dialogue",
                               is_correction=is_correction)
 
-        assistant_text = ollama_chat(
+        assistant_text = chat_fn(
             host=host,
             model=model,
             messages=env.render_messages(),
@@ -221,6 +232,7 @@ def main() -> None:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     all_results: list[dict[str, Any]] = []
+    chat_fn = get_chat_fn(args.backend)
 
     for family_name in args.families:
         tiered = PROMPT_SUITES_TIERED.get(family_name, {})
@@ -248,6 +260,7 @@ def main() -> None:
                     risk_threshold=args.risk_threshold,
                     top_k=args.top_k,
                     std_drop_signal=args.std_drop_signal,
+                    chat_fn=chat_fn,
                 )
                 result["model"] = args.model
                 result["family_name"] = family_name
@@ -283,6 +296,7 @@ def main() -> None:
 
     payload = {
         "created_at": timestamp,
+        "backend": args.backend,
         "model": args.model,
         "families": args.families,
         "repeat": args.repeat,

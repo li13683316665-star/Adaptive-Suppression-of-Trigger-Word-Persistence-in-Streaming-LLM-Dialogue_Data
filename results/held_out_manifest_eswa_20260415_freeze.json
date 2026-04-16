@@ -1,7 +1,7 @@
 {
   "run_group": "eswa_20260415_freeze_heldout",
   "created_for_release_tag": "eswa-20260415-freeze",
-  "primary_benchmark_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_suite",
+  "primary_benchmark_run_group": "deepseek_v32_cross_20260415",
   "families": [
     "animal",
     "weather"

@@ -22,8 +22,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.bias.metrics import compute_bias_metrics  # noqa: E402
+from src.model.chat_backend import get_chat_fn  # noqa: E402
 from src.model.loader import load_config  # noqa: E402
-from src.model.ollama_client import DEFAULT_OLLAMA_HOST, ollama_chat  # noqa: E402
+from src.model.ollama_client import DEFAULT_OLLAMA_HOST  # noqa: E402
 from src.reduction.algorithms import apply_reduction  # noqa: E402
 from src.simulation.chat_env import VtuberChatEnv  # noqa: E402
 from src.utils.helpers import get_project_root, get_results_dir, setup_logging  # noqa: E402
@@ -67,6 +68,12 @@ def _parse_args() -> argparse.Namespace:
         type=int,
         default=1,
         help="Optional repeat index stored in the output payload.",
+    )
+    parser.add_argument(
+        "--backend",
+        choices=["ollama", "openai"],
+        default="ollama",
+        help="Chat backend: local Ollama or OpenAI-compatible API (e.g. DeepSeek).",
     )
     return parser.parse_args()
 
@@ -116,6 +123,7 @@ def _run_case_method(
     model: str,
     host: str,
     generation_cfg: dict[str, Any],
+    chat_fn,
 ) -> dict[str, Any]:
     env = _build_env(case)
     generations: list[str] = []
@@ -132,7 +140,7 @@ def _run_case_method(
             generation_cfg=generation_cfg,
             trigger_family=trigger_family,
         )
-        assistant_text = ollama_chat(
+        assistant_text = chat_fn(
             host=host,
             model=model,
             messages=reduction["messages"],
@@ -222,6 +230,7 @@ def main() -> None:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
     prompt_cases = _load_prompt_cases(prompt_file)
+    chat_fn = get_chat_fn(args.backend)
     results: list[dict[str, Any]] = []
     for method in args.methods:
         LOGGER.info("Running %s across %s cases", method, len(prompt_cases))
@@ -233,11 +242,13 @@ def main() -> None:
                     model=args.model,
                     host=args.host,
                     generation_cfg=cfg.get("generation", {}),
+                    chat_fn=chat_fn,
                 )
             )
 
     payload = {
         "created_at": timestamp,
+        "backend": args.backend,
         "model": args.model,
         "host": args.host,
         "run_group": args.run_group or None,

@@ -49,6 +49,10 @@ MANIFEST.sha256
 Publication PNG figures are included under `Docs/Paper/figures/`.
 The paired `results/paper_*.json` files are the direct aggregated data exports behind those figures.
 
+To regenerate figures from this frozen archive, run from the repository root with
+`RSE_RESULTS_DIR=results` (or platform-equivalent env syntax) so artifact builders read
+the shipped `results/` tree rather than the development default `data_new/results`.
+
 ## Citation
 
 Use the repository root above together with the fixed release tag for the submission freeze.

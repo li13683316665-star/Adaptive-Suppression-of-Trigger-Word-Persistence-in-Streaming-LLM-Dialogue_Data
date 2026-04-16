@@ -95,7 +95,15 @@ def _load_heldout_payload(path: Path) -> dict[str, object]:
     payload = json.loads(path.read_text(encoding="utf-8"))
     model = str(payload.get("model", "unknown"))
     family = str(payload.get("results", [{}])[0].get("trigger_word", "unknown"))
-    prompt_file = str(payload.get("prompt_file", ""))
+    prompt_file_raw = str(payload.get("prompt_file", ""))
+    prompt_path = Path(prompt_file_raw)
+    if prompt_path.is_absolute():
+        try:
+            prompt_file = str(prompt_path.relative_to(ROOT)).replace("\\", "/")
+        except ValueError:
+            prompt_file = prompt_file_raw
+    else:
+        prompt_file = prompt_file_raw.replace("\\", "/")
     repeat_index = int(payload.get("repeat_index", 0) or 0)
     return {
         "kind": "held_out_baseline",
@@ -262,6 +270,10 @@ def write_readme(out: Path, copied: list[str], full_data_new: bool, heldout_name
             "",
             "Publication PNG figures are included under `Docs/Paper/figures/`.",
             "The paired `results/paper_*.json` files are the direct aggregated data exports behind those figures.",
+            "",
+            "To regenerate figures from this frozen archive, run from the repository root with",
+            "`RSE_RESULTS_DIR=results` (or platform-equivalent env syntax) so artifact builders read",
+            "the shipped `results/` tree rather than the development default `data_new/results`.",
             "",
         ]
     )

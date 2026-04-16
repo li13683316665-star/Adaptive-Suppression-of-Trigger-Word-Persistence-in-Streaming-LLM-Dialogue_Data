@@ -1,50 +1,69 @@
-# Research data — Adaptive Suppression of Trigger-Word Persistence in Streaming LLM Dialogue
+# Frozen archive — Adaptive Suppression of Trigger-Word Persistence in Streaming LLM Dialogue
 
+This folder is the **single public archive repository** for the ESWA submission.
+It bundles the frozen code, prompts, configs, tests, and quantitative result artifacts
+so every submission component can point to one authoritative URI strategy.
 
-## Primary snapshot (manuscript tables and figures)
+## Frozen release target
 
-Run group: `ministral_incr_full_eswa_20260414_055054_suite`.
+- Preferred repository root: `https://github.com/li13683316665-star/Adaptive-Suppression-of-Trigger-Word-Persistence-in-Streaming-LLM-Dialogue_Data`
+- Fixed release/tag name: `eswa-20260415-freeze`
+- Primary benchmark run group: `minicpm_v45_incr_full_eswa_20260415_051850_suite`
+- Optional DOI path: connect the repository to Zenodo after publishing the GitHub release.
 
-Included JSON exports (`results/paper_*.json`) are produced by `experiments/04_build_paper_artifacts.py`
-from merged manifests under `data_new/results/`. Filenames match those referenced in the manuscript
-(e.g. `paper_crossmodel_baseline_*_suite.json` and held-out manifest names in Table 2).
+## Main-paper benchmark snapshot
 
-Held-out manifests cited in the paper:
+- `qwen3.5:4b`
+- `gemma4:e4b`
+- `openbmb/minicpm-v4.5:8b`
+- `ministral-3:8b`
 
-- `held_out_manifest_heldout_eswa_20260414.json`
-- `held_out_manifest_ministral_incr_full_eswa_20260414_055054_heldout.json`
+The archive includes the full `paper_*` export set and the matching cross-model manifest
+for the single frozen benchmark snapshot above. Earlier `20260414` exports are not part of
+the public submission-freeze narrative and should not be cited as the main-paper snapshot.
 
-## Layout
+## Held-out materials
+
+- Consolidated held-out manifest: `held_out_manifest_eswa_20260415_freeze.json`
+- Legacy per-repeat held-out JSON files remain included only through the consolidated manifest.
+- Expanded held-out prompt suites live under `data/prompts/` in this same archive.
+
+## Repository layout
 
 ```
-results/     # merged paper exports + crossmodel manifest + held-out manifests
-configs/     # default.yaml (paper.figure_models pin for main panels)
-LICENSE        # Apache-2.0
+results/        # frozen paper exports + manifests + held-out freeze manifest
+experiments/    # experiment runners and artifact builder
+data/prompts/   # development and held-out prompt suites
+src/            # detector, controller, metrics, loaders
+configs/        # YAML configuration, including paper figure-model pin
+tests/          # regression checks
+scripts/        # archive and analysis helpers
+requirements.txt
+CITATION.cff
+ARCHIVE_RELEASE.md
 MANIFEST.sha256
 ```
 
-Publication PNG figures are here, with their filenames aligned as "Figure_X"
-They can be regenerated from these `results/paper_*.json` exports using `experiments/04_build_paper_artifacts.py`
-in the main project when the results directory contains this snapshot.
+Publication PNG figures are included with filenames aligned as `Figure_X`.
+They are not the canonical evidence layer; regenerate them from the frozen `results/paper_*.json`
+exports with `experiments/04_build_paper_artifacts.py` when needed.
 
 ## Citation
 
-See the article’s References entry for the dataset (GitHub repository) and the permanent URL given in the **Research data** statement.
+Use the repository root above together with the fixed release tag for the submission freeze.
+If a Zenodo DOI is minted later, treat that DOI as the preferred citable archive identifier.
 
 ## Integrity
 
-SHA-256 checksums for included files are listed in `MANIFEST.sha256`.
+SHA-256 checksums in `MANIFEST.sha256` cover only public archive contents.
+They intentionally exclude `.git/`, merge leftovers, and other repository-internal files.
 
-## Reproducibility code (same repository)
+## Publishing the release
 
-The `code/` directory contains experiment scripts, benchmark prompts under `code/data/prompts/`, library code under `code/src/`, `code/configs/`, `code/tests/`, and `code/requirements.txt`.
+See `ARCHIVE_RELEASE.md` for the exact local-to-GitHub release steps and the optional DOI workflow.
 
-To regenerate paper figures after cloning this repository: copy the JSON files from `results/` (at repo root) into `code/data_new/results/`, then from the `code/` folder set `PYTHONPATH` to that folder and run `python experiments/04_build_paper_artifacts.py` (PNG output under `code/Docs/Paper/figures/`).
+## Full `data_new/` archive (optional)
 
-## Software/hardware notes
+To bundle the entire local `data_new/` tree for deeper byte-level inspection, run from the project root:
 
-THe author used a Asus ROG Strix Scar 18 (2023) Laptop with RTX4090 laptop (687 AI tops)
-Python==3.12.10
-ollama==0.20.6
-(See all in \code\requirements.txt)
-Used model: "gemma4:e4b; qwen3.5:4b openbmb/minicpm-v4.5:8b ministral-3:8b"
+`python scripts/build_eswa_data_deposit.py --full-data-new`

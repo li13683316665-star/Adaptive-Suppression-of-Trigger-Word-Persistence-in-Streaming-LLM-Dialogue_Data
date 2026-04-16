@@ -1,0 +1,1514 @@
+[
+  {
+    "model": "qwen3.5:4b",
+    "ablation_group": "density",
+    "case_id": "density_low",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.25
+      ],
+      "mean": 0.1,
+      "median": 0.0,
+      "std": 0.1225,
+      "min": 0.0,
+      "max": 0.25,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        2.0
+      ],
+      "mean": 0.8,
+      "median": 0.0,
+      "std": 0.9798,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.6
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    }
+  },
+  {
+    "model": "qwen3.5:4b",
+    "ablation_group": "density",
+    "case_id": "density_medium",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.5,
+        0.25,
+        0.0,
+        0.25
+      ],
+      "mean": 0.2,
+      "median": 0.25,
+      "std": 0.1871,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.05,
+        "high": 0.35
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        3.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "mean": 1.4,
+      "median": 1.0,
+      "std": 1.0198,
+      "min": 0.0,
+      "max": 3.0,
+      "ci95": {
+        "low": 0.6,
+        "high": 2.2
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.5,
+        0.5,
+        0.0,
+        0.0
+      ],
+      "mean": 0.2,
+      "median": 0.0,
+      "std": 0.2449,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.4
+      }
+    }
+  },
+  {
+    "model": "qwen3.5:4b",
+    "ablation_group": "density",
+    "case_id": "density_high",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.25,
+        0.0,
+        0.5,
+        0.0
+      ],
+      "mean": 0.25,
+      "median": 0.25,
+      "std": 0.2236,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.05,
+        "high": 0.45
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        3.0,
+        3.0,
+        2.0,
+        4.0,
+        0.0
+      ],
+      "mean": 2.4,
+      "median": 3.0,
+      "std": 1.3565,
+      "min": 0.0,
+      "max": 4.0,
+      "ci95": {
+        "low": 1.0,
+        "high": 3.4
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "mean": 0.4,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.2,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "qwen3.5:4b",
+    "ablation_group": "channel",
+    "case_id": "channel_dialogue_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.3333
+      ],
+      "mean": 0.0667,
+      "median": 0.0,
+      "std": 0.1333,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.0
+      ],
+      "mean": 0.4,
+      "median": 0.0,
+      "std": 0.8,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.2
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.0,
+        0.5,
+        0.5
+      ],
+      "mean": 0.4,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.2,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "qwen3.5:4b",
+    "ablation_group": "channel",
+    "case_id": "channel_environment_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.3333,
+        0.3333,
+        0.3333,
+        0.3333,
+        0.0
+      ],
+      "mean": 0.2666,
+      "median": 0.3333,
+      "std": 0.1333,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.1333,
+        "high": 0.3333
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        3.0,
+        4.0,
+        2.0,
+        0.0
+      ],
+      "mean": 2.0,
+      "median": 2.0,
+      "std": 1.4142,
+      "min": 0.0,
+      "max": 4.0,
+      "ci95": {
+        "low": 0.8,
+        "high": 3.2
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        1.0,
+        0.5,
+        1.0,
+        0.5,
+        0.0
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.3742,
+      "min": 0.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.3,
+        "high": 0.9
+      }
+    }
+  },
+  {
+    "model": "qwen3.5:4b",
+    "ablation_group": "channel",
+    "case_id": "channel_mixed",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.3333,
+        0.3333,
+        0.0
+      ],
+      "mean": 0.1333,
+      "median": 0.0,
+      "std": 0.1633,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2666
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        1.0,
+        2.0,
+        0.0
+      ],
+      "mean": 0.6,
+      "median": 0.0,
+      "std": 0.8,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.4
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.5,
+        0.0
+      ],
+      "mean": 0.1,
+      "median": 0.0,
+      "std": 0.2,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.3
+      }
+    }
+  },
+  {
+    "model": "gemma4:e4b",
+    "ablation_group": "density",
+    "case_id": "density_low",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean": 1.0,
+      "median": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 1.0,
+        "high": 1.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "gemma4:e4b",
+    "ablation_group": "density",
+    "case_id": "density_medium",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "gemma4:e4b",
+    "ablation_group": "density",
+    "case_id": "density_high",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.2,
+      "median": 0.0,
+      "std": 0.4,
+      "min": 0.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.6
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "gemma4:e4b",
+    "ablation_group": "channel",
+    "case_id": "channel_dialogue_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.3333,
+        0.3333,
+        0.0
+      ],
+      "mean": 0.1333,
+      "median": 0.0,
+      "std": 0.1633,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2666
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        0.0,
+        1.0,
+        2.0,
+        1.0
+      ],
+      "mean": 1.0,
+      "median": 1.0,
+      "std": 0.6325,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.4,
+        "high": 1.6
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        1.0,
+        1.0,
+        0.5
+      ],
+      "mean": 0.7,
+      "median": 0.5,
+      "std": 0.2449,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.9
+      }
+    }
+  },
+  {
+    "model": "gemma4:e4b",
+    "ablation_group": "channel",
+    "case_id": "channel_environment_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean": 1.0,
+      "median": 1.0,
+      "std": 0.0,
+      "min": 1.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 1.0,
+        "high": 1.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "gemma4:e4b",
+    "ablation_group": "channel",
+    "case_id": "channel_mixed",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.3333,
+        0.0,
+        0.0,
+        0.0,
+        0.3333
+      ],
+      "mean": 0.1333,
+      "median": 0.0,
+      "std": 0.1633,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2666
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mean": 0.6,
+      "median": 0.0,
+      "std": 0.8,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.2
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.8
+      }
+    }
+  },
+  {
+    "model": "openbmb/minicpm-v4.5:8b",
+    "ablation_group": "density",
+    "case_id": "density_low",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.0
+      ],
+      "mean": 0.05,
+      "median": 0.0,
+      "std": 0.1,
+      "min": 0.0,
+      "max": 0.25,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.15
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        1.0,
+        1.0,
+        1.0,
+        2.0,
+        1.0
+      ],
+      "mean": 1.2,
+      "median": 1.0,
+      "std": 0.4,
+      "min": 1.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 1.0,
+        "high": 1.6
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        1.0,
+        0.5
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.8
+      }
+    }
+  },
+  {
+    "model": "openbmb/minicpm-v4.5:8b",
+    "ablation_group": "density",
+    "case_id": "density_medium",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        2.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.4,
+      "median": 0.0,
+      "std": 0.8,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.2
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        1.0,
+        12.0,
+        0.0,
+        0.0
+      ],
+      "mean": 2.6,
+      "median": 0.0,
+      "std": 4.7159,
+      "min": 0.0,
+      "max": 12.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 7.4
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        1.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.7,
+      "median": 0.5,
+      "std": 0.4,
+      "min": 0.5,
+      "max": 1.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 1.1
+      }
+    }
+  },
+  {
+    "model": "openbmb/minicpm-v4.5:8b",
+    "ablation_group": "density",
+    "case_id": "density_high",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.5
+      ],
+      "mean": 0.2,
+      "median": 0.0,
+      "std": 0.2449,
+      "min": 0.0,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.4
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        2.0,
+        3.0,
+        2.0,
+        2.0,
+        5.0
+      ],
+      "mean": 2.8,
+      "median": 2.0,
+      "std": 1.1662,
+      "min": 2.0,
+      "max": 5.0,
+      "ci95": {
+        "low": 2.0,
+        "high": 4.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        1.0
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.8
+      }
+    }
+  },
+  {
+    "model": "openbmb/minicpm-v4.5:8b",
+    "ablation_group": "channel",
+    "case_id": "channel_dialogue_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.3333,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0667,
+      "median": 0.0,
+      "std": 0.1333,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        2.0,
+        0.0,
+        2.0,
+        1.0,
+        1.0
+      ],
+      "mean": 1.2,
+      "median": 1.0,
+      "std": 0.7483,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.6,
+        "high": 1.8
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.8
+      }
+    }
+  },
+  {
+    "model": "openbmb/minicpm-v4.5:8b",
+    "ablation_group": "channel",
+    "case_id": "channel_environment_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.6667,
+        0.3333,
+        0.3333,
+        0.0
+      ],
+      "mean": 0.2667,
+      "median": 0.3333,
+      "std": 0.2495,
+      "min": 0.0,
+      "max": 0.6667,
+      "ci95": {
+        "low": 0.0667,
+        "high": 0.4667
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        2.0,
+        4.0,
+        2.0,
+        3.0,
+        0.0
+      ],
+      "mean": 2.2,
+      "median": 2.0,
+      "std": 1.3266,
+      "min": 0.0,
+      "max": 4.0,
+      "ci95": {
+        "low": 1.0,
+        "high": 3.2
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        1.0,
+        1.0,
+        0.5,
+        0.0
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.3742,
+      "min": 0.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.3,
+        "high": 0.9
+      }
+    }
+  },
+  {
+    "model": "openbmb/minicpm-v4.5:8b",
+    "ablation_group": "channel",
+    "case_id": "channel_mixed",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.6667,
+        0.6667,
+        0.0,
+        0.0
+      ],
+      "mean": 0.2667,
+      "median": 0.0,
+      "std": 0.3266,
+      "min": 0.0,
+      "max": 0.6667,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.5334
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        3.0,
+        4.0,
+        0.0,
+        1.0
+      ],
+      "mean": 1.6,
+      "median": 1.0,
+      "std": 1.6248,
+      "min": 0.0,
+      "max": 4.0,
+      "ci95": {
+        "low": 0.2,
+        "high": 3.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        1.0,
+        1.0,
+        0.5,
+        0.5
+      ],
+      "mean": 0.7,
+      "median": 0.5,
+      "std": 0.2449,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.9
+      }
+    }
+  },
+  {
+    "model": "ministral-3:8b",
+    "ablation_group": "density",
+    "case_id": "density_low",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "ministral-3:8b",
+    "ablation_group": "density",
+    "case_id": "density_medium",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.25
+      ],
+      "mean": 0.05,
+      "median": 0.0,
+      "std": 0.1,
+      "min": 0.0,
+      "max": 0.25,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.15
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "mean": 0.2,
+      "median": 0.0,
+      "std": 0.4,
+      "min": 0.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.6
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "ministral-3:8b",
+    "ablation_group": "density",
+    "case_id": "density_high",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.25,
+        0.25,
+        0.0,
+        0.0
+      ],
+      "mean": 0.1,
+      "median": 0.0,
+      "std": 0.1225,
+      "min": 0.0,
+      "max": 0.25,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        2.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.6,
+      "median": 0.0,
+      "std": 0.8,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.4
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "ministral-3:8b",
+    "ablation_group": "channel",
+    "case_id": "channel_dialogue_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "mean": 0.2,
+      "median": 0.0,
+      "std": 0.4,
+      "min": 0.0,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.6
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  },
+  {
+    "model": "ministral-3:8b",
+    "ablation_group": "channel",
+    "case_id": "channel_environment_only",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.3333,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0667,
+      "median": 0.0,
+      "std": 0.1333,
+      "min": 0.0,
+      "max": 0.3333,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.2
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        2.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.4,
+      "median": 0.0,
+      "std": 0.8,
+      "min": 0.0,
+      "max": 2.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 1.2
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        1.0,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.6,
+      "median": 0.5,
+      "std": 0.2,
+      "min": 0.5,
+      "max": 1.0,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.8
+      }
+    }
+  },
+  {
+    "model": "ministral-3:8b",
+    "ablation_group": "channel",
+    "case_id": "channel_mixed",
+    "runs": 5,
+    "pctp": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "trigger_family_total": {
+      "count": 5,
+      "values": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "mean": 0.0,
+      "median": 0.0,
+      "std": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "ci95": {
+        "low": 0.0,
+        "high": 0.0
+      }
+    },
+    "sfr": {
+      "count": 5,
+      "values": [
+        0.5,
+        0.5,
+        0.5,
+        0.5,
+        0.5
+      ],
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.0,
+      "min": 0.5,
+      "max": 0.5,
+      "ci95": {
+        "low": 0.5,
+        "high": 0.5
+      }
+    }
+  }
+]

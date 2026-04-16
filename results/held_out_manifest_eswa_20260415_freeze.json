@@ -1,0 +1,568 @@
+{
+  "run_group": "eswa_20260415_freeze_heldout",
+  "created_for_release_tag": "eswa-20260415-freeze",
+  "primary_benchmark_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_suite",
+  "families": [
+    "animal",
+    "weather"
+  ],
+  "models": [
+    "gemma4:e4b",
+    "minicpm-v",
+    "ministral-3:8b",
+    "openbmb/minicpm-v4.5:8b",
+    "qwen3.5:4b"
+  ],
+  "artifacts": [
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r01_20260414_033409.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r02_20260414_033435.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r03_20260414_033456.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r04_20260414_033518.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_gemma4_e4b_r05_20260414_033541.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r01_20260414_034111.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r02_20260414_034128.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r03_20260414_034139.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r04_20260414_034150.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_minicpm_v_r05_20260414_034201.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_ministral_3_8b_r01_20260414_102644.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_ministral_3_8b_r02_20260414_102658.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_ministral_3_8b_r03_20260414_102712.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_ministral_3_8b_r04_20260414_102724.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_ministral_3_8b_r05_20260414_102738.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_openbmb_minicpm_v4_5_8b_r01_20260415_124025.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_openbmb_minicpm_v4_5_8b_r02_20260415_124039.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_openbmb_minicpm_v4_5_8b_r03_20260415_124055.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_openbmb_minicpm_v4_5_8b_r04_20260415_124106.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_openbmb_minicpm_v4_5_8b_r05_20260415_124117.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r01_20260414_033753.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r02_20260414_033816.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r03_20260414_033835.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r04_20260414_033854.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "animal",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\animal_bias_cases.json",
+      "files": [
+        "heldout_baseline_animal_qwen3_5_4b_r05_20260414_033914.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r01_20260414_033603.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r02_20260414_033625.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r03_20260414_033647.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r04_20260414_033709.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "gemma4:e4b",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_gemma4_e4b_r05_20260414_033731.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r01_20260414_034211.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r02_20260414_034222.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r03_20260414_034233.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r04_20260414_034244.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "minicpm-v",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_minicpm_v_r05_20260414_034255.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_ministral_3_8b_r01_20260414_102752.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_ministral_3_8b_r02_20260414_102805.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_ministral_3_8b_r03_20260414_102820.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_ministral_3_8b_r04_20260414_102833.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "ministral-3:8b",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_ministral_3_8b_r05_20260414_102845.json"
+      ],
+      "source_run_group": "ministral_incr_full_eswa_20260414_055054_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_openbmb_minicpm_v4_5_8b_r01_20260415_124128.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_openbmb_minicpm_v4_5_8b_r02_20260415_124140.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_openbmb_minicpm_v4_5_8b_r03_20260415_124155.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_openbmb_minicpm_v4_5_8b_r04_20260415_124206.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "openbmb/minicpm-v4.5:8b",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_openbmb_minicpm_v4_5_8b_r05_20260415_124218.json"
+      ],
+      "source_run_group": "minicpm_v45_incr_full_eswa_20260415_051850_heldout"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 1,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r01_20260414_033934.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 2,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r02_20260414_033954.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 3,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r03_20260414_034013.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 4,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r04_20260414_034032.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    },
+    {
+      "kind": "held_out_baseline",
+      "model": "qwen3.5:4b",
+      "family": "weather",
+      "repeat_index": 5,
+      "prompt_file": "C:\\Users\\13511\\桌面\\Project RSE\\data\\prompts\\weather_bias_cases.json",
+      "files": [
+        "heldout_baseline_weather_qwen3_5_4b_r05_20260414_034052.json"
+      ],
+      "source_run_group": "heldout_eswa_20260414"
+    }
+  ]
+}

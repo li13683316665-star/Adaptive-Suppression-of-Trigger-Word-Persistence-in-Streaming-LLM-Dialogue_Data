@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "Adaptive Suppression of Trigger-Word Persistence in Streaming LLM Dialogue"
+message: "If you use this archive, please cite the frozen release or DOI."
+type: software
+authors:
+  - family-names: "Li"
+    given-names: "Jun-Xing"
+version: "eswa-20260415-freeze"
+repository-code: "https://github.com/li13683316665-star/Adaptive-Suppression-of-Trigger-Word-Persistence-in-Streaming-LLM-Dialogue_Data"
+license: "Apache-2.0"
+abstract: "Single-repository frozen archive for the ESWA submission, bundling code, prompts, configs, tests, and quantitative result artifacts."
+keywords:
+  - "LLM reliability"
+  - "streaming dialogue"
+  - "trigger persistence"
+  - "adaptive control"
